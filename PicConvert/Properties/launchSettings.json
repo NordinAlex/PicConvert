@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "PicConvert (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "PicConvert (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
