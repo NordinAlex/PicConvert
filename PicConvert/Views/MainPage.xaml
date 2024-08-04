@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="PicConvert.Views.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:PicConvert.Views"
+    xmlns:vm="using:PicConvert.ViewModels"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="3*" />
+        </Grid.ColumnDefinitions>
+
+        <!-- Vänster sektion: Välja filer -->
+        <StackPanel Grid.Column="0" Padding="10">
+            <TextBlock Text="Välj filer" FontSize="20" Margin="0,0,0,10"/>
+            <!-- Lista för filer -->
+            <ListView x:Name="FilesListView" ItemsSource="{Binding Files}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding Name}" Width="150"/>
+                            <TextBlock Text="{Binding Format}" Width="80"/>
+                            <TextBlock Text="{Binding Size}" Width="80"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                <Button Content="Välj alla" Command="{Binding SelectAllCommand}" Margin="0,0,10,0"/>
+                <Button Content="Ta bort" Command="{Binding RemoveCommand}"/>
+            </StackPanel>
+        </StackPanel>
+
+        <!-- Höger sektion: Inställningar -->
+        <StackPanel Grid.Column="1" Padding="10">
+            <TextBlock Text="Inställningar" FontSize="20" Margin="0,0,0,10"/>
+            <!-- Format och special inställningar -->
+            <ComboBox x:Name="FormatComboBox" SelectedItem="{Binding SelectedFormat}" ItemsSource="{Binding Formats}" Margin="0,0,0,10"/>
+            <ContentControl Content="{Binding SpecialSettings}" Margin="0,0,0,10"/>
+            <TextBlock Text="Kvalitet" Margin="0,0,0,10"/>
+            <Slider Minimum="0" Maximum="100" Value="{Binding Quality}" Margin="0,0,0,10"/>
+            <TextBlock Text="Storlek" Margin="0,0,0,10"/>
+            <TextBox Text="{Binding Size}" Margin="0,0,0,10"/>
+            <TextBlock Text="Skip Metadata" Margin="0,0,0,10"/>
+            <ToggleSwitch IsOn="{Binding SkipMetadata}" Margin="0,0,0,10"/>
+            <StackPanel Orientation="Horizontal" Margin="20,10,0,0">
+                <Button Content="Välj mapp" Command="{Binding SelectFolderCommand}" Margin="0,0,10,0"/>
+                <Button Content="Konvertera" Command="{Binding ConvertCommand}"/>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Page>
