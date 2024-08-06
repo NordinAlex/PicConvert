@@ -1,26 +1,30 @@
+using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Navigation;
+using PicConvert.Helpers;
+using PicConvert.Models;
 using PicConvert.ViewModels;
-
-// To learn more about WinUI, the WinUI project structure,
-// and more about our project templates, see: http://aka.ms/winui-project-info.
+using System.Collections.Generic;
 
 namespace PicConvert.Views
 {
-	/// <summary>
-	/// An empty page that can be used on its own or navigated to within a Frame.
-	/// </summary>
 	public sealed partial class MainPage : Page
 	{
-		public MainViewModel _viewModel { get; } = new MainViewModel();
+		public MainViewModel ViewModel { get; }
+
+		public List<EnumValue> FileFormats { get; }
+
 		public MainPage()
 		{
+			ViewModel = new MainViewModel();
+			FileFormats = EnumSource.GetValues<FileFormats>();
 			this.InitializeComponent();
-			this.DataContext = _viewModel;
-			this.Height = 300;
-			this.Width = 400;
-
+			DataContext = ViewModel;
 		}
 
-		public MainViewModel ViewModel => _viewModel;
+		protected override void OnNavigatedTo(NavigationEventArgs e)
+		{
+			base.OnNavigatedTo(e);
+		}
 	}
 }

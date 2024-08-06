@@ -14,6 +14,16 @@
         <StackPanel
             x:Name="ContentArea">
             <TextBlock x:Uid="Settings_Personalization" Style="{ThemeResource SubtitleTextBlockStyle}" />
+            <!-- Språkinställningar -->
+            <TextBlock x:Uid="Settings_Language" Style="{ThemeResource SubtitleTextBlockStyle}" />
+            <ComboBox
+                 x:Name="LanguageComboBox"
+                 ItemsSource="{x:Bind ViewModel.AvailableLanguages}"
+                 SelectedItem="{x:Bind ViewModel.SelectedLanguage, Mode=TwoWay}"
+                 DisplayMemberPath="DisplayName"
+                 Margin="{StaticResource SmallTopBottomMargin}" />
+            
+            <!-- Temainställningar -->
             <StackPanel Margin="{StaticResource SmallTopBottomMargin}">
                 <TextBlock x:Uid="Settings_Theme" />
 

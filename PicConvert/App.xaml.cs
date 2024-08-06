@@ -12,6 +12,8 @@ using PicConvert.Services;
 using PicConvert.ViewModels;
 using PicConvert.Views;
 using System;
+using System.Globalization;
+using Windows.ApplicationModel.Resources.Core;
 
 namespace PicConvert;
 
@@ -41,7 +43,7 @@ public partial class App : Application
 
 	public static WindowEx MainWindow { get; } = new MainWindow();
 
-	public static UIElement? AppTitlebar { get; set; }
+	public static UIElement AppTitlebar { get; set; }
 
 	public App()
 	{
@@ -68,11 +70,14 @@ public partial class App : Application
 
 			// Core Services
 			services.AddSingleton<IFileService, FileService>();
+			services.AddSingleton<IFileConversionService, FileConversionService>();
 
 			// Views and ViewModels
 			services.AddTransient<SettingsViewModel>();
 			services.AddTransient<SettingsPage>();
 			services.AddTransient<MainViewModel>();
+			
+
 			services.AddTransient<MainPage>();
 			services.AddTransient<ShellPage>();
 			services.AddTransient<ShellViewModel>();
@@ -93,8 +98,9 @@ public partial class App : Application
 
 	protected async override void OnLaunched(LaunchActivatedEventArgs args)
 	{
-		base.OnLaunched(args);
+		base.OnLaunched(args);	
 
 		await App.GetService<IActivationService>().ActivateAsync(args);
+		
 	}
 }

@@ -154,12 +154,12 @@
     <value>https://YourPrivacyUrlGoesHere/</value>
   </data>
   <data name="Settings_Language" xml:space="preserve">
-    <value>Language</value>
+    <value>Språk</value>
   </data>
   <data name="Settings_Language_English" xml:space="preserve">
-    <value>English</value>
+    <value>Engelska</value>
   </data>
   <data name="Settings_Language_Swedish" xml:space="preserve">
-    <value>Swedish</value>
+    <value>Svenska</value>
   </data>
 </root>
