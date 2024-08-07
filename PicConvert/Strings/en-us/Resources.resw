@@ -117,14 +117,71 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AppDisplayName" xml:space="preserve">
-    <value>PicConvert</value>
-  </data>
   <data name="AppDescription" xml:space="preserve">
     <value>PicConvert</value>
   </data>
-  <data name="Shell_Main.Content" xml:space="preserve">
-    <value>Main</value>
+  <data name="AppDisplayName" xml:space="preserve">
+    <value>PicConvert</value>
+  </data>
+  <data name="Main_ResourceKeys_Convert" xml:space="preserve">
+    <value>Convert</value>
+  </data>
+  <data name="Main_ResourceKeys_Format" xml:space="preserve">
+    <value>Format</value>
+  </data>
+  <data name="Main_ResourceKeys_NullSetting" xml:space="preserve">
+    <value>Null Setting</value>
+  </data>
+  <data name="Main_ResourceKeys_Quality" xml:space="preserve">
+    <value>Quality</value>
+  </data>
+  <data name="Main_ResourceKeys_RemoveSelected" xml:space="preserve">
+    <value>Remove selected</value>
+  </data>
+  <data name="Main_ResourceKeys_SelectAll" xml:space="preserve">
+    <value>Select all</value>
+  </data>
+  <data name="Main_ResourceKeys_SelectFiles" xml:space="preserve">
+    <value>Select files</value>
+  </data>
+  <data name="Main_ResourceKeys_SelectFolder" xml:space="preserve">
+    <value>Select Folder</value>
+  </data>
+  <data name="Main_ResourceKeys_Settings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="Main_ResourceKeys_Size" xml:space="preserve">
+    <value>Size</value>
+  </data>
+  <data name="Main_ResourceKeys_SkipMetadata" xml:space="preserve">
+    <value>Skip Metadata</value>
+  </data>
+  <data name="RestartDialogCloseButtonText" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="RestartDialogContent" xml:space="preserve">
+    <value>The application needs to restart to apply the language change. Do you want to restart now?</value>
+  </data>
+  <data name="RestartDialogPrimaryButtonText" xml:space="preserve">
+    <value>Restart</value>
+  </data>
+  <data name="RestartDialogTitle" xml:space="preserve">
+    <value>Restart required</value>
+  </data>
+  <data name="SettingsPage_PrivacyTermsLink.Content" xml:space="preserve">
+    <value>Privacy</value>
+  </data>
+  <data name="SettingsPage_PrivacyTermsLink.NavigateUri" xml:space="preserve">
+    <value>https://YourPrivacyUrlGoesHere/</value>
+  </data>
+  <data name="Settings_About.Text" xml:space="preserve">
+    <value>About this application</value>
+  </data>
+  <data name="Settings_AboutDescription.Text" xml:space="preserve">
+    <value>TODO: Replace with your app description. </value>
+  </data>
+  <data name="Settings_Languages.Text" xml:space="preserve">
+    <value>Language</value>
   </data>
   <data name="Settings_Personalization.Text" xml:space="preserve">
     <value>Personalization</value>
@@ -132,34 +189,16 @@
   <data name="Settings_Theme.Text" xml:space="preserve">
     <value>Theme</value>
   </data>
-  <data name="Settings_Theme_Light.Content" xml:space="preserve">
-    <value>Light</value>
-  </data>
   <data name="Settings_Theme_Dark.Content" xml:space="preserve">
     <value>Dark</value>
   </data>
   <data name="Settings_Theme_Default.Content" xml:space="preserve">
     <value>Default</value>
   </data>
-  <data name="Settings_About.Text" xml:space="preserve">
-    <value>About this application</value>
+  <data name="Settings_Theme_Light.Content" xml:space="preserve">
+    <value>Light</value>
   </data>
-  <data name="Settings_AboutDescription.Text" xml:space="preserve">
-    <value>TODO: Replace with your app description.</value>
-  </data>
-  <data name="SettingsPage_PrivacyTermsLink.Content" xml:space="preserve">
-    <value>Privacy Statement</value>
-  </data>
-  <data name="SettingsPage_PrivacyTermsLink.NavigateUri" xml:space="preserve">
-    <value>https://YourPrivacyUrlGoesHere/</value>
-  </data>
-  <data name="Settings_Language" xml:space="preserve">
-    <value>Language</value>
-  </data>
-  <data name="Settings_Language_English" xml:space="preserve">
-    <value>English</value>
-  </data>
-  <data name="Settings_Language_Swedish" xml:space="preserve">
-    <value>Swedish</value>
+  <data name="Shell_Main.Content" xml:space="preserve">
+    <value>Main</value>
   </data>
 </root>

@@ -18,7 +18,7 @@ namespace PicConvert.Views
 		{
 			ViewModel = new MainViewModel();
 			FileFormats = EnumSource.GetValues<FileFormats>();
-			this.InitializeComponent();
+			this.InitializeComponent();		
 			DataContext = ViewModel;
 		}
 

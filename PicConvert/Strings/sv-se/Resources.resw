@@ -117,49 +117,88 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AppDisplayName" xml:space="preserve">
-    <value>PicConvert</value>
-  </data>
   <data name="AppDescription" xml:space="preserve">
     <value>PicConvert</value>
   </data>
-  <data name="Shell_Main.Content" xml:space="preserve">
-    <value>Main</value>
+  <data name="AppDisplayName" xml:space="preserve">
+    <value>PicConvert</value>
   </data>
-  <data name="Settings_Personalization.Text" xml:space="preserve">
-    <value>Personalization</value>
+  <data name="Main_ResourceKeys_Convert" xml:space="preserve">
+    <value>Konvertera</value>
   </data>
-  <data name="Settings_Theme.Text" xml:space="preserve">
-    <value>Theme</value>
+  <data name="Main_ResourceKeys_Format" xml:space="preserve">
+    <value>Format</value>
   </data>
-  <data name="Settings_Theme_Light.Content" xml:space="preserve">
-    <value>Light</value>
+  <data name="Main_ResourceKeys_NullSetting" xml:space="preserve">
+    <value>Null inställning</value>
   </data>
-  <data name="Settings_Theme_Dark.Content" xml:space="preserve">
-    <value>Dark</value>
+  <data name="Main_ResourceKeys_Quality" xml:space="preserve">
+    <value>Kvalitet</value>
   </data>
-  <data name="Settings_Theme_Default.Content" xml:space="preserve">
-    <value>Default</value>
+  <data name="Main_ResourceKeys_RemoveSelected" xml:space="preserve">
+    <value>Ta bort valda</value>
   </data>
-  <data name="Settings_About.Text" xml:space="preserve">
-    <value>About this application</value>
+  <data name="Main_ResourceKeys_SelectAll" xml:space="preserve">
+    <value>Välj alla</value>
   </data>
-  <data name="Settings_AboutDescription.Text" xml:space="preserve">
-    <value>TODO: Replace with your app description.</value>
+  <data name="Main_ResourceKeys_SelectFiles" xml:space="preserve">
+    <value>Välj filer</value>
+  </data>
+  <data name="Main_ResourceKeys_SelectFolder" xml:space="preserve">
+    <value>Välj mapp</value>
+  </data>
+  <data name="Main_ResourceKeys_Settings" xml:space="preserve">
+    <value>Inställningar</value>
+  </data>
+  <data name="Main_ResourceKeys_Size" xml:space="preserve">
+    <value>Storlek</value>
+  </data>
+  <data name="Main_ResourceKeys_SkipMetadata" xml:space="preserve">
+    <value>Skip Metadata</value>
+  </data>
+  <data name="RestartDialogCloseButtonText" xml:space="preserve">
+    <value>Avbryt</value>
+  </data>
+  <data name="RestartDialogContent" xml:space="preserve">
+    <value>Applikationen måste startas om för att tillämpa språkändringen. Vill du starta om nu?</value>
+  </data>
+  <data name="RestartDialogPrimaryButtonText" xml:space="preserve">
+    <value>Starta om</value>
+  </data>
+  <data name="RestartDialogTitle" xml:space="preserve">
+    <value>Omstart krävs</value>
   </data>
   <data name="SettingsPage_PrivacyTermsLink.Content" xml:space="preserve">
-    <value>Privacy Statement</value>
+    <value>Sekretesspolicy</value>
   </data>
   <data name="SettingsPage_PrivacyTermsLink.NavigateUri" xml:space="preserve">
     <value>https://YourPrivacyUrlGoesHere/</value>
   </data>
-  <data name="Settings_Language" xml:space="preserve">
+  <data name="Settings_About.Text" xml:space="preserve">
+    <value>Om denna applikation</value>
+  </data>
+  <data name="Settings_AboutDescription.Text" xml:space="preserve">
+    <value>TODO: Ersätt med din appbeskrivning. </value>
+  </data>
+  <data name="Settings_Languages.Text" xml:space="preserve">
     <value>Språk</value>
   </data>
-  <data name="Settings_Language_English" xml:space="preserve">
-    <value>Engelska</value>
+  <data name="Settings_Personalization.Text" xml:space="preserve">
+    <value>Anpassning</value>
   </data>
-  <data name="Settings_Language_Swedish" xml:space="preserve">
-    <value>Svenska</value>
+  <data name="Settings_Theme.Text" xml:space="preserve">
+    <value>Tema</value>
+  </data>
+  <data name="Settings_Theme_Dark.Content" xml:space="preserve">
+    <value>Mörk</value>
+  </data>
+  <data name="Settings_Theme_Default.Content" xml:space="preserve">
+    <value>Standard</value>
+  </data>
+  <data name="Settings_Theme_Light.Content" xml:space="preserve">
+    <value>Ljus</value>
+  </data>
+  <data name="Shell_Main.Content" xml:space="preserve">
+    <value>Main</value>
   </data>
 </root>
