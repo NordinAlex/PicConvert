@@ -123,6 +123,18 @@
   <data name="AppDisplayName" xml:space="preserve">
     <value>PicConvert</value>
   </data>
+  <data name="ConDialog_RestartDialogCloseButtonText" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="ConDialog_RestartDialogContent" xml:space="preserve">
+    <value>The application needs to restart to apply the language change. Do you want to restart now?</value>
+  </data>
+  <data name="ConDialog_RestartDialogPrimaryButtonText" xml:space="preserve">
+    <value>Restart</value>
+  </data>
+  <data name="ConDialog_RestartDialogTitle" xml:space="preserve">
+    <value>Restart required</value>
+  </data>
   <data name="Main_ResourceKeys_Convert" xml:space="preserve">
     <value>Convert</value>
   </data>
@@ -155,18 +167,6 @@
   </data>
   <data name="Main_ResourceKeys_SkipMetadata" xml:space="preserve">
     <value>Skip Metadata</value>
-  </data>
-  <data name="RestartDialogCloseButtonText" xml:space="preserve">
-    <value>Cancel</value>
-  </data>
-  <data name="RestartDialogContent" xml:space="preserve">
-    <value>The application needs to restart to apply the language change. Do you want to restart now?</value>
-  </data>
-  <data name="RestartDialogPrimaryButtonText" xml:space="preserve">
-    <value>Restart</value>
-  </data>
-  <data name="RestartDialogTitle" xml:space="preserve">
-    <value>Restart required</value>
   </data>
   <data name="SettingsPage_PrivacyTermsLink.Content" xml:space="preserve">
     <value>Privacy</value>

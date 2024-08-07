@@ -80,10 +80,10 @@ public partial class SettingsViewModel : ObservableRecipient
 	{
 		var dialog = new ContentDialog
 		{
-			Title = _settingsResourceLoader.GetString("RestartDialogTitle"),
-			Content = _settingsResourceLoader.GetString("RestartDialogContent"),
-			PrimaryButtonText = _settingsResourceLoader.GetString("RestartDialogPrimaryButtonText"),
-			CloseButtonText = _settingsResourceLoader.GetString("RestartDialogCloseButtonText"),
+			Title = _settingsResourceLoader.GetString("ConDialog_RestartDialogTitle"),
+			Content = _settingsResourceLoader.GetString("ConDialog_RestartDialogContent"),
+			PrimaryButtonText = _settingsResourceLoader.GetString("ConDialog_RestartDialogPrimaryButtonText"),
+			CloseButtonText = _settingsResourceLoader.GetString("ConDialog_RestartDialogCloseButtonText"),
 			DefaultButton = ContentDialogButton.Primary,
 			XamlRoot = App.MainWindow.Content.XamlRoot
 		};

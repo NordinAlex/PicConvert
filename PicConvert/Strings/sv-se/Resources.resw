@@ -123,6 +123,18 @@
   <data name="AppDisplayName" xml:space="preserve">
     <value>PicConvert</value>
   </data>
+  <data name="ConDialog_RestartDialogCloseButtonText" xml:space="preserve">
+    <value>Avbryt</value>
+  </data>
+  <data name="ConDialog_RestartDialogContent" xml:space="preserve">
+    <value>Applikationen måste startas om för att tillämpa språkändringen. Vill du starta om nu?</value>
+  </data>
+  <data name="ConDialog_RestartDialogPrimaryButtonText" xml:space="preserve">
+    <value>Starta om</value>
+  </data>
+  <data name="ConDialog_RestartDialogTitle" xml:space="preserve">
+    <value>Omstart krävs</value>
+  </data>
   <data name="Main_ResourceKeys_Convert" xml:space="preserve">
     <value>Konvertera</value>
   </data>
@@ -155,18 +167,6 @@
   </data>
   <data name="Main_ResourceKeys_SkipMetadata" xml:space="preserve">
     <value>Skip Metadata</value>
-  </data>
-  <data name="RestartDialogCloseButtonText" xml:space="preserve">
-    <value>Avbryt</value>
-  </data>
-  <data name="RestartDialogContent" xml:space="preserve">
-    <value>Applikationen måste startas om för att tillämpa språkändringen. Vill du starta om nu?</value>
-  </data>
-  <data name="RestartDialogPrimaryButtonText" xml:space="preserve">
-    <value>Starta om</value>
-  </data>
-  <data name="RestartDialogTitle" xml:space="preserve">
-    <value>Omstart krävs</value>
   </data>
   <data name="SettingsPage_PrivacyTermsLink.Content" xml:space="preserve">
     <value>Sekretesspolicy</value>
