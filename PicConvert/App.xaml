@@ -12,7 +12,7 @@
                 <ResourceDictionary Source="/Styles/TextBlock.xaml" />               
             </ResourceDictionary.MergedDictionaries>
             <!-- Använder en konverterare för formatinställningar -->
-            <local:FormatSettingsConverter x:Key="FormatSettingsConverter"/>
+          
         </ResourceDictionary>        
     </Application.Resources>
 </Application>

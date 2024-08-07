@@ -4,7 +4,9 @@ using Microsoft.UI.Xaml.Navigation;
 using PicConvert.Helpers;
 using PicConvert.Models;
 using PicConvert.ViewModels;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace PicConvert.Views
 {
@@ -12,12 +14,12 @@ namespace PicConvert.Views
 	{
 		public MainViewModel ViewModel { get; }
 
-		public List<EnumValue> FileFormats { get; }
+		public List<ImageFormats> FileFormats { get; }
 
 		public MainPage()
 		{
 			ViewModel = new MainViewModel();
-			FileFormats = EnumSource.GetValues<FileFormats>();
+			FileFormats = Enum.GetValues(typeof(ImageFormats)).Cast<ImageFormats>().ToList();
 			this.InitializeComponent();		
 			DataContext = ViewModel;
 		}

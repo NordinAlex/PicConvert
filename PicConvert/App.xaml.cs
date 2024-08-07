@@ -42,14 +42,15 @@ namespace PicConvert
 			ConfigureServices((context, services) =>
 			{
 				services.AddTransient<ActivationHandler<LaunchActivatedEventArgs>, DefaultActivationHandler>();
-
+				
 				services.AddSingleton<ILocalSettingsService, LocalSettingsService>();
 				services.AddSingleton<IThemeSelectorService, ThemeSelectorService>();
 				services.AddTransient<INavigationViewService, NavigationViewService>();
-
+		
 				services.AddSingleton<IActivationService, ActivationService>();
 				services.AddSingleton<IPageService, PageService>();
 				services.AddSingleton<INavigationService, NavigationService>();
+				services.AddSingleton<IDialogService, DialogService>();
 
 				services.AddSingleton<IFileService, FileService>();
 				services.AddSingleton<IFileConversionService, FileConversionService>();

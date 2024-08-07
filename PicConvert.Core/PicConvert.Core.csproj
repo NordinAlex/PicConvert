@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+      <PackageReference Include="Magick.NET-Q16-AnyCPU" Version="13.10.0" />
       <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.5.240311000" />
       <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22621.756" />
       <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />

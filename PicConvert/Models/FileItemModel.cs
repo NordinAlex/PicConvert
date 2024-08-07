@@ -7,9 +7,10 @@ namespace PicConvert.Models
 		private bool _isSelected;
 
 		public string Name { get; set; }
+		public ImageFormats ImgConFormat { get; set; }
 		public string Format { get; set; }
 		public int Size { get; set; }
-
+		public string Path { get; set; }
 		public bool IsSelected
 		{
 			get => _isSelected;

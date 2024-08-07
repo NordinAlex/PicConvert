@@ -9,114 +9,177 @@ using Windows.Storage;
 using Windows.Storage.Pickers;
 using PicConvert.Models;
 using System;
+using PicConvert.Core.Contracts.Services;
+using PicConvert.Core.Models;
+using PicConvert.Helpers;
+using System.IO;
 
 namespace PicConvert.ViewModels
 {
-	public partial class MainViewModel : ObservableObject
-	{
-		[ObservableProperty]
-		private ObservableCollection<FileItemModel> selectedFiles;
+    public partial class MainViewModel : ObservableObject
+    {
+        [ObservableProperty]
+        private ObservableCollection<FileItemModel> selectedFiles;
 
 		[ObservableProperty]
-		private FileFormats selectedFormat;
+		private object selectedFormat;
 
 		[ObservableProperty]
-		private int quality;
+		private StorageFolder selectedFolder;
+
 
 		[ObservableProperty]
-		private int size;
+        private int quality;
 
-		[ObservableProperty]
-		private bool skipMetadata;
+        [ObservableProperty]
+        private int size;
 
-		[ObservableProperty]
-		private bool nullSetting;
+        [ObservableProperty]
+        private bool skipMetadata;
 
-		public ICommand OpenFilePickerCommand { get; }
-		public ICommand SelectAllCommand { get; }
-		public ICommand RemoveSelectedCommand { get; }
+        [ObservableProperty]
+        private bool nullSetting;
 
-		public MainViewModel()
-		{
-			SelectedFiles = new ObservableCollection<FileItemModel>();
+        public ICommand OpenFilePickerCommand { get; }
+        public ICommand SelectAllCommand { get; }
+        public ICommand RemoveSelectedCommand { get; }
+        public ICommand ConvertCommand { get; }
+        public ICommand SelectFolderCommand { get; }
+
+        public MainViewModel()
+        {
+            SelectedFiles = new ObservableCollection<FileItemModel>();
+            Quality = 75; // Standardvärde för Quality
+            Size = 50; // Standardvärde för Size
+            //SelectedFormat = ImageFormats.WebP; // Standardvärde för SelectedFormat
+            
 			OpenFilePickerCommand = new RelayCommand(async () => await OpenFilePicker());
-			SelectAllCommand = new RelayCommand(SelectAllFiles);
-			RemoveSelectedCommand = new RelayCommand(RemoveSelectedFiles);
-		}
+            SelectAllCommand = new RelayCommand(SelectAllFiles);
+            RemoveSelectedCommand = new RelayCommand(RemoveSelectedFiles);
+            ConvertCommand = new RelayCommand(async () => await ConvertFilesAsync());
+            SelectFolderCommand = new RelayCommand(async () => await SelectFolderAsync());
+        }
 
-		private async Task OpenFilePicker()
-		{
-			var openPicker = new Windows.Storage.Pickers.FileOpenPicker();
+        private async Task OpenFilePicker()
+        {
+            var openPicker = new FileOpenPicker();
 
-			var window = App.MainWindow;
-			var hWnd = WinRT.Interop.WindowNative.GetWindowHandle(window);
-			WinRT.Interop.InitializeWithWindow.Initialize(openPicker, hWnd);
+            var window = App.MainWindow;
+            var hWnd = WinRT.Interop.WindowNative.GetWindowHandle(window);
+            WinRT.Interop.InitializeWithWindow.Initialize(openPicker, hWnd);
 
-			openPicker.ViewMode = PickerViewMode.Thumbnail;
-			openPicker.SuggestedStartLocation = PickerLocationId.PicturesLibrary;
-			openPicker.FileTypeFilter.Add(".jpg");
-			openPicker.FileTypeFilter.Add(".jpeg");
-			openPicker.FileTypeFilter.Add(".png");
+            openPicker.ViewMode = PickerViewMode.Thumbnail;
+            openPicker.SuggestedStartLocation = PickerLocationId.PicturesLibrary;
+            openPicker.FileTypeFilter.Add(".jpg");
+            openPicker.FileTypeFilter.Add(".jpeg");
+            openPicker.FileTypeFilter.Add(".png");
 
-			var files = await openPicker.PickMultipleFilesAsync();
+            var files = await openPicker.PickMultipleFilesAsync();
 
-			if (files != null)
-			{
-				var fileItems = new List<FileItemModel>();
+            if (files != null)
+            {
+                var fileItems = new List<FileItemModel>();
 
-				foreach (var file in files)
-				{
-					var properties = await file.GetBasicPropertiesAsync();
+                foreach (var file in files)
+                {
+                    var properties = await file.GetBasicPropertiesAsync();
+					// SelectFolderAsync
+
+                    //var folder = await SelectFolderAsync();
+                    
 					fileItems.Add(new FileItemModel
-					{
-						Name = file.Name,
-						Format = file.FileType,
-						Size = (int)(properties.Size / 1024), // storlek i KB
-						IsSelected = false
-					});
-				}
+                    {
+                        Path = file.Path,
+                        Name = file.Name,
+                        Format = file.FileType,
+                        Size = (int)(properties.Size / 1024), // storlek i KB
+                        IsSelected = false
+                    });
+                }
 
-				SelectFiles(fileItems);
-			}
-		}
+                SelectFiles(fileItems);
+            }
+        }
 
-		private void SelectFiles(IEnumerable<FileItemModel> files)
+        private void SelectFiles(IEnumerable<FileItemModel> files)
+        {
+            if (files == null)
+            {
+                return;
+            }
+
+            foreach (var file in files)
+            {
+                if (file == null)
+                {
+                    continue;
+                }
+
+                if (!SelectedFiles.Contains(file))
+                {
+                    SelectedFiles.Add(file);
+                }
+            }
+        }
+
+        private void SelectAllFiles()
+        {
+            foreach (var file in SelectedFiles)
+            {
+                file.IsSelected = true;
+            }
+        }
+
+        private void RemoveSelectedFiles()
+        {
+            var filesToRemove = SelectedFiles.Where(file => file.IsSelected).ToList();
+
+            foreach (var file in filesToRemove)
+            {
+                SelectedFiles.Remove(file);
+            }
+        }
+
+		private async Task ConvertFilesAsync()
 		{
-			if (files == null)
+			if (SelectedFolder == null)
 			{
+				// Hantera fallet där ingen mapp är vald
 				return;
 			}
 
-			foreach (var file in files)
-			{
-				if (file == null)
-				{
-					continue;
-				}
+			var conversionService = App.GetService<IFileConversionService>();
 
-				if (!SelectedFiles.Contains(file))
-				{
-					SelectedFiles.Add(file);
-				}
-			}
-		}
-
-		private void SelectAllFiles()
-		{
 			foreach (var file in SelectedFiles)
 			{
-				file.IsSelected = true;
+				if (file.IsSelected)
+				{
+					var newFilePath = Path.Combine(SelectedFolder.Path, file.Name);
+
+					await conversionService.ConvertFileAsync(new FileItem
+					{
+						Path = file.Path,
+						Name = file.Name,
+						Format = file.Format.ToString(),
+						Size = file.Size
+					}, SelectedFormat.ToString(), Quality, Size.ToString(), SkipMetadata, newFilePath);
+				}
 			}
 		}
 
-		private void RemoveSelectedFiles()
-		{
-			var filesToRemove = SelectedFiles.Where(file => file.IsSelected).ToList();
 
-			foreach (var file in filesToRemove)
+		private async Task SelectFolderAsync()
+        {
+            var folderPicker = new FolderPicker();
+            var window = App.MainWindow;
+            var hWnd = WinRT.Interop.WindowNative.GetWindowHandle(window);
+            WinRT.Interop.InitializeWithWindow.Initialize(folderPicker, hWnd);
+
+            var folder = await folderPicker.PickSingleFolderAsync();
+			if (folder != null)
 			{
-				SelectedFiles.Remove(file);
+				SelectedFolder = folder;
 			}
 		}
-	}
+    }
 }
