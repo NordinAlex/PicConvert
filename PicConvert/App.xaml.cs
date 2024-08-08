@@ -57,11 +57,14 @@ namespace PicConvert
 
 				services.AddTransient<SettingsViewModel>();
 				services.AddTransient<SettingsPage>();
-				services.AddTransient<MainViewModel>();
 
+				services.AddTransient<MainViewModel>();
 				services.AddTransient<MainPage>();
-				services.AddTransient<ShellPage>();
+				services.AddTransient<ProgressDialog>();
+
 				services.AddTransient<ShellViewModel>();
+				services.AddTransient<ShellPage>();
+				
 
 				services.Configure<LocalSettingsOptions>(context.Configuration.GetSection(nameof(LocalSettingsOptions)));
 			}).

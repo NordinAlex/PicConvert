@@ -141,6 +141,9 @@
   <data name="Main_ResourceKeys_Format" xml:space="preserve">
     <value>Format</value>
   </data>
+  <data name="Main_ResourceKeys_InputImages" xml:space="preserve">
+    <value>Select files</value>
+  </data>
   <data name="Main_ResourceKeys_NullSetting" xml:space="preserve">
     <value>Null Setting</value>
   </data>
@@ -152,9 +155,6 @@
   </data>
   <data name="Main_ResourceKeys_SelectAll" xml:space="preserve">
     <value>Select all</value>
-  </data>
-  <data name="Main_ResourceKeys_SelectFiles" xml:space="preserve">
-    <value>Select files</value>
   </data>
   <data name="Main_ResourceKeys_SelectFolder" xml:space="preserve">
     <value>Select Folder</value>
