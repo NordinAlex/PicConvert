@@ -1,7 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.UI.Xaml.Controls;
-using Newtonsoft.Json.Linq;
 using PicConvert.Core.Contracts.Services;
 using PicConvert.Core.Models;
 using PicConvert.Models;
@@ -24,20 +23,21 @@ namespace PicConvert.ViewModels
 	{
 		private CancellationTokenSource cancellationTokenSource;
 
+		// Observable properties automatically notify the UI when they change
 		[ObservableProperty]
-		private ObservableCollection<FileItemModel> inputImages;
+		private ObservableCollection<FileItemModel> inputImages = new();
 
 		[ObservableProperty]
-		private object selectedFormat;
+		private object selectedFormat = ImageFormats.WebP; // Default to WebP format
 
 		[ObservableProperty]
 		private StorageFolder selectedFolder;
 
 		[ObservableProperty]
-		private int quality;
+		private int quality = 75; // Default quality
 
 		[ObservableProperty]
-		private int size;
+		private int size = 50; // Default size
 
 		[ObservableProperty]
 		private bool skipMetadata;
@@ -45,30 +45,40 @@ namespace PicConvert.ViewModels
 		[ObservableProperty]
 		private bool nullSetting;
 
+		// ICommand properties for UI bindings
 		public ICommand OpenFilePickerCommand { get; }
 		public ICommand SelectAllCommand { get; }
 		public ICommand RemoveSelectedCommand { get; }
 		public ICommand ConvertCommand { get; }
 		public ICommand SelectFolderCommand { get; }
+		public ICommand NullSettingCommand { get; }
 
 		public MainViewModel()
 		{
-			InputImages = new ObservableCollection<FileItemModel>();
-			Quality = 75; // Standardvärde för Quality
-			Size = 50; // Standardvärde för Size
-			SelectedFormat = ImageFormats.WebP; // Standardvärde för SelectedFormat
-
-			OpenFilePickerCommand = new RelayCommand(async () => await OpenFilePicker());
+			// Initialize commands with their respective methods
+			OpenFilePickerCommand = new RelayCommand(async () => await OpenFilePickerAsync());
 			SelectAllCommand = new RelayCommand(SelectAllFiles);
-			RemoveSelectedCommand = new RelayCommand(RemoveSelectedFiles);
+			RemoveSelectedCommand = new RelayCommand(async () => await RemoveSelectedFilesAsync());
 			ConvertCommand = new RelayCommand(async () => await ConvertFilesAsync());
 			SelectFolderCommand = new RelayCommand(async () => await SelectFolderAsync());
+			NullSettingCommand = new RelayCommand(DefaultSetting);
 		}
 
-		private async Task OpenFilePicker()
+		// Method to set the default values
+		private void DefaultSetting()
+		{			
+			Quality = 75;
+			Size = 50;
+			SkipMetadata = false;	
+		}
+
+
+		// Method to open a file picker and allow the user to select multiple images
+		private async Task OpenFilePickerAsync()
 		{
 			var openPicker = new FileOpenPicker();
 
+			// Initialize the file picker with the app window handle
 			var window = App.MainWindow;
 			var hWnd = WinRT.Interop.WindowNative.GetWindowHandle(window);
 			WinRT.Interop.InitializeWithWindow.Initialize(openPicker, hWnd);
@@ -81,48 +91,40 @@ namespace PicConvert.ViewModels
 
 			var files = await openPicker.PickMultipleFilesAsync();
 
-			if (files != null)
+			if (files != null && files.Any())
 			{
-				var fileItems = new List<FileItemModel>();
-
-				foreach (var file in files)
+				var fileItems = files.Select(async file =>
 				{
 					var properties = await file.GetBasicPropertiesAsync();
-					fileItems.Add(new FileItemModel
+					return new FileItemModel
 					{
 						Path = file.Path,
 						Name = file.Name,
 						Format = file.FileType,
-						Size = (int)(properties.Size / 1024), // storlek i KB
+						Size = (int)(properties.Size / 1024), // size in KB
 						IsSelected = false
-					});
-				}
+					};
+				});
 
-				SelectFiles(fileItems);
+				SelectFiles(await Task.WhenAll(fileItems));
 			}
 		}
 
+		// Method to add selected files to the collection, ensuring no duplicates
 		private void SelectFiles(IEnumerable<FileItemModel> files)
 		{
-			if (files == null)
-			{
-				return;
-			}
+			if (files == null) return;
 
 			foreach (var file in files)
 			{
-				if (file == null)
-				{
-					continue;
-				}
-
-				if (!InputImages.Contains(file))
+				if (!InputImages.Any(f => f.Path == file.Path))
 				{
 					InputImages.Add(file);
 				}
 			}
 		}
 
+		// Method to select all files in the collection
 		private void SelectAllFiles()
 		{
 			foreach (var file in InputImages)
@@ -131,9 +133,15 @@ namespace PicConvert.ViewModels
 			}
 		}
 
-		private void RemoveSelectedFiles()
+		// Method to remove selected files from the collection
+		private async Task RemoveSelectedFilesAsync()
 		{
 			var filesToRemove = InputImages.Where(file => file.IsSelected).ToList();
+			if (!filesToRemove.Any())
+			{
+				await ShowMessageDialogAsync("Error", "No files selected to remove.");
+				return;
+			}
 
 			foreach (var file in filesToRemove)
 			{
@@ -141,41 +149,25 @@ namespace PicConvert.ViewModels
 			}
 		}
 
+		// Method to handle file conversion
 		private async Task ConvertFilesAsync()
 		{
-			if (SelectedFolder == null)
-			{
-				var dialog = new ContentDialog
-				{
-					Title = "Fel",
-					Content = "Välj filer och en mapp att spara till.",
-					CloseButtonText = "OK",
-					XamlRoot = App.MainWindow.Content.XamlRoot
-				};
-				await dialog.ShowAsync();
-				return;
-			}
+			if (!await ValidateInputsAsync()) return;
 
-			// Skapa en ny CancellationTokenSource för denna operation
 			cancellationTokenSource = new CancellationTokenSource();
 
-			// Skapa och visa popup-fönster för konverteringsstatus
-			var progressDialog = new ProgressDialog(cancellationTokenSource);
-			progressDialog.XamlRoot = App.MainWindow.Content.XamlRoot;
+			var progressDialog = new ProgressDialog(cancellationTokenSource)
+			{
+				XamlRoot = App.MainWindow.Content.XamlRoot
+			};
+
 			var progressDialogTask = progressDialog.ShowAsync();
-			
-			
-			//var progressvs = new Progress<int>(value =>
-			//{
-			//	progressDialog.SetProgress(value);
-			//	progressDialog.SetStatus($"Konverterar... {value}% klart");
-			//});
-			Action<int> reportProgress = (value) =>
+
+			Action<int> reportProgress = value =>
 			{
 				progressDialog.SetProgress(value);
-				progressDialog.SetStatus($"Konverterar... {value}% klart");
+				progressDialog.SetStatus($"Converting... {value}% complete");
 			};
-				
 
 			try
 			{
@@ -197,47 +189,28 @@ namespace PicConvert.ViewModels
 					}, SelectedFormat.ToString(), Quality, Size.ToString(), SkipMetadata, newFilePath, cancellationTokenSource.Token);
 
 					processedFiles++;
-					//int progressValue = (int)((double)processedFiles / totalFiles * 100);
-					int progressValue = (int)((processedFiles / (double)totalFiles) * 100);					
-					reportProgress(progressValue);
+					reportProgress((int)((processedFiles / (double)totalFiles) * 100));
 				}
 
-				 //await progressDialogTask; // Vänta tills progress-dialogen är klar att stängas
 				progressDialog.Hide();
-				// Stäng dialogen efter att konverteringen är klar
-				var successDialog = new ContentDialog
-				{
-					Title = "Klar",
-					Content = "Filerna har konverterats.",
-					CloseButtonText = "OK",
-					XamlRoot = App.MainWindow.Content.XamlRoot
-				};
-				await successDialog.ShowAsync();
 
-
-
+				await ShowMessageDialogAsync("Complete", "Files have been successfully converted.");
 			}
 			catch (OperationCanceledException)
 			{
-				var cancelledDialog = new ContentDialog
-				{
-					Title = "Avbruten",
-					Content = "Konverteringsprocessen har avbrutits.",
-					CloseButtonText = "OK",
-					XamlRoot = App.MainWindow.Content.XamlRoot
-				};
-				await cancelledDialog.ShowAsync();
+				await ShowMessageDialogAsync("Cancelled", "Conversion process was cancelled.");
 			}
 			finally
 			{
-				progressDialog.Hide(); // Se till att dialogen stängs även vid avbrott
+				progressDialog.Hide(); // Ensure dialog is closed in case of cancellation
 			}
-
 		}
 
+		// Method to select a folder for saving converted files
 		private async Task SelectFolderAsync()
 		{
 			var folderPicker = new FolderPicker();
+
 			var window = App.MainWindow;
 			var hWnd = WinRT.Interop.WindowNative.GetWindowHandle(window);
 			WinRT.Interop.InitializeWithWindow.Initialize(folderPicker, hWnd);
@@ -247,6 +220,36 @@ namespace PicConvert.ViewModels
 			{
 				SelectedFolder = folder;
 			}
+		}
+
+		// Method to validate user inputs before starting the conversion process
+		private async Task<bool> ValidateInputsAsync()
+		{
+			if (InputImages == null || !InputImages.Any())
+			{
+				await ShowMessageDialogAsync("Error", "Please select files to convert.");
+				return false;
+			}
+			if (SelectedFolder == null)
+			{
+				await ShowMessageDialogAsync("Error", "Please select a folder to save the files.");
+				return false;
+			}			
+
+			return true;
+		}
+
+		// Helper method to show a message dialog
+		private async Task ShowMessageDialogAsync(string title, string content)
+		{
+			var dialog = new ContentDialog
+			{
+				Title = title,
+				Content = content,
+				CloseButtonText = "OK",
+				XamlRoot = App.MainWindow.Content.XamlRoot
+			};
+			await dialog.ShowAsync();
 		}
 	}
 }
