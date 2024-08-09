@@ -5,6 +5,7 @@ using Microsoft.UI.Xaml.Controls;
 using Microsoft.Windows.ApplicationModel.Resources;
 using PicConvert.Contracts.Services;
 using PicConvert.Helpers;
+using PicConvert.Services;
 using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -21,6 +22,7 @@ public partial class SettingsViewModel : ObservableRecipient
 {
 	private readonly IThemeSelectorService _themeSelectorService;
 	private readonly ResourceLoader _settingsResourceLoader;
+	private readonly IDialogService _dialogService;
 
 	[ObservableProperty]
 	private ElementTheme _elementTheme;
@@ -45,14 +47,14 @@ public partial class SettingsViewModel : ObservableRecipient
 		get;
 	}
 
-	public SettingsViewModel(IThemeSelectorService themeSelectorService)
+	public SettingsViewModel(IThemeSelectorService themeSelectorService,IDialogService dialogService)
 	{
 		_themeSelectorService = themeSelectorService;
 		_settingsResourceLoader = new ResourceLoader(); // Specifikt resursnamn
 		_elementTheme = _themeSelectorService.Theme;
 		_versionDescription = GetVersionDescription();
 		_selectedLanguage = CultureInfo.CurrentCulture;
-
+		_dialogService = dialogService;
 		SwitchThemeCommand = new RelayCommand<ElementTheme>(
 			async (param) =>
 			{
@@ -68,27 +70,18 @@ public partial class SettingsViewModel : ObservableRecipient
 
 	partial void OnSelectedLanguageChanged(CultureInfo value)
 	{
-		ApplicationLanguages.PrimaryLanguageOverride = value.Name;
-		// Reload the app to load the new language		
-		// Ask the user if they want to restart the app now
+		ApplicationLanguages.PrimaryLanguageOverride = value.Name;		
 		ShowRestartDialog();
-
-
-
 	}
+	
 	private async void ShowRestartDialog()
 	{
-		var dialog = new ContentDialog
-		{
-			Title = _settingsResourceLoader.GetString("ConDialog_RestartDialogTitle"),
-			Content = _settingsResourceLoader.GetString("ConDialog_RestartDialogContent"),
-			PrimaryButtonText = _settingsResourceLoader.GetString("ConDialog_RestartDialogPrimaryButtonText"),
-			CloseButtonText = _settingsResourceLoader.GetString("ConDialog_RestartDialogCloseButtonText"),
-			DefaultButton = ContentDialogButton.Primary,
-			XamlRoot = App.MainWindow.Content.XamlRoot
-		};
-
-		var result = await dialog.ShowAsync();
+		var result = await _dialogService.ShowCustomDialogAsync(
+			_settingsResourceLoader.GetString("ConDialog_RestartDialogTitle"),
+			_settingsResourceLoader.GetString("ConDialog_RestartDialogContent"),
+			_settingsResourceLoader.GetString("ConDialog_RestartDialogPrimaryButtonText"),
+			_settingsResourceLoader.GetString("ConDialog_RestartDialogCloseButtonText"),
+			ContentDialogButton.Primary);
 
 		if (result == ContentDialogResult.Primary)
 		{
@@ -96,7 +89,6 @@ public partial class SettingsViewModel : ObservableRecipient
 			RestartApplication();
 		}
 	}
-
 	private void RestartApplication()
 	{
 		var process = new ProcessStartInfo

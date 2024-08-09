@@ -28,6 +28,5 @@ namespace PicConvert.Views
 			cancellationTokenSource.Cancel();
 			sender.Hide();
 		}
-
 	}
 }

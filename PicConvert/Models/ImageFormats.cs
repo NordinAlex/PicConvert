@@ -1,18 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace PicConvert.Models
+﻿namespace PicConvert.Models;
+public enum ImageFormats
 {
-	public enum ImageFormats
-	{
-		JPEG,
-		PNG,
-		PDF,
-		SVG,
-		WebP
-	}
-
+	JPEG,
+	PNG,
+	PDF,
+	SVG,
+	WebP
 }

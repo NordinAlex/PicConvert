@@ -1,41 +1,50 @@
 ﻿using Microsoft.UI.Xaml.Controls;
+using PicConvert.Contracts.Services;
+using PicConvert.Views;
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 
-namespace PicConvert.Services
+namespace PicConvert.Services;
+
+
+public class DialogService : IDialogService
 {
-	public interface IDialogService
-	{
-		Task ShowAsync(string message);
-	}
 
-	public class DialogService : IDialogService
+	public async Task ShowMessageDialogAsync(string title, string content)
 	{
-		public async Task ShowAsync(string message)
+		var dialog = new ContentDialog
 		{
-			// Kontrollera att vi har en referens till ett fönster
-			var window = App.MainWindow;
-			var hWnd = WinRT.Interop.WindowNative.GetWindowHandle(window);
-
-			var dialog = new ContentDialog
-			{
-				Title = "Status",
-				Content = new TextBlock { Text = message },
-				CloseButtonText = "OK"
-			};
-
-			// Försök att initialisera dialogen med fönsterhanteraren
-			try
-			{
-				WinRT.Interop.InitializeWithWindow.Initialize(dialog, hWnd);
-				await dialog.ShowAsync();
-			}
-			catch (Exception ex)
-			{
-				// Logga eller hantera undantaget
-				System.Diagnostics.Debug.WriteLine($"Fel vid visning av dialog: {ex.Message}");
-			}
-		}
+			Title = title,// properties
+			Content = content,
+			CloseButtonText = "OK",
+			XamlRoot = App.MainWindow.Content.XamlRoot
+		};
+		await dialog.ShowAsync();
 	}
+	public async Task<ContentDialogResult> ShowCustomDialogAsync(string title, string content, string primaryButtonText, string closeButtonText, ContentDialogButton defaultButton)
+	{
+		var dialog = new ContentDialog
+		{
+			Title = title,
+			Content = content,
+			PrimaryButtonText = primaryButtonText,
+			CloseButtonText = closeButtonText,
+			DefaultButton = defaultButton,
+			XamlRoot = App.MainWindow.Content.XamlRoot
+		};
 
+		return await dialog.ShowAsync();
+	}
+	public async Task<ProgressDialog> ShowProgressDialogAsync(CancellationTokenSource cts)
+	{
+		var progressDialog = new ProgressDialog(cts)
+		{
+			XamlRoot = App.MainWindow.Content.XamlRoot
+		};
+
+		var progressD = progressDialog.ShowAsync(); 
+
+		return await Task.FromResult(progressDialog); 
+	}
 }
