@@ -5,16 +5,15 @@ namespace PicConvert.Helpers;
 
 public static class FileFormatHelper
 {
-	private static readonly Dictionary<ImageFormats, string> _fileExtensionMap = new()
+	private static readonly Dictionary<InputImageFormats, string> _fileExtensionMap = new()
 		{
-			{ ImageFormats.JPEG, ".jpg" },
-			{ ImageFormats.PNG, ".png" },
-			{ ImageFormats.PDF, ".pdf" },
-			{ ImageFormats.SVG, ".svg" },
-			{ ImageFormats.WebP, ".webp" }
+			{ InputImageFormats.JPEG, ".jpg" },
+			{ InputImageFormats.PNG, ".png" },			
+			{ InputImageFormats.SVG, ".svg" },
+			{ InputImageFormats.WebP, ".webp" }
 		};
 
-	public static string GetFileExtension(ImageFormats format)
+	public static string GetFileExtension(InputImageFormats format)
 	{
 		return _fileExtensionMap[format];
 	}

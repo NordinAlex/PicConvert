@@ -113,14 +113,14 @@
 
             <TextBlock Text="{x:Bind helpers:MainResourceKeys.Quality}" FontSize="16" Margin="0,0,0,5"/>
             <Slider x:Name="QualitySlider"
-            Minimum="0"
+            Minimum="5"
             Maximum="100"
             Value="{Binding Quality, Mode=TwoWay}"
             Margin="0,0,0,10"/>
 
             <TextBlock Text="{x:Bind helpers:MainResourceKeys.Size}" FontSize="16" Margin="0,0,0,5"/>
             <Slider x:Name="SizeSlider"
-                    Minimum="0"
+                    Minimum="5"
                     Maximum="100"
                     Value="{Binding Size, Mode=TwoWay}"
                     Margin="0,0,0,10"/>
@@ -130,12 +130,14 @@
           IsChecked="{Binding SkipMetadata, Mode=TwoWay}"
           Margin="0,0,0,10"/>
 
-            <!-- Lägg till denna CheckBox under din ComboBox för formatval -->
-            <CheckBox x:Name="MergeToPdfCheckBox"
-          Content="Merge images into a single PDF"
-          IsChecked="{Binding MergeToPdf, Mode=TwoWay}"
-          
-          Margin="0,0,0,10"/>
+
+            <CheckBox
+            x:Name="MergeToPdfCheckBox"
+            Content="Merge images into a single PDF"
+            IsChecked="{Binding MergeToPdf, Mode=TwoWay}"
+            IsEnabled="{Binding IsPdfSelected, Mode=TwoWay}"
+            Margin="0,0,0,10"/>
+
 
 
             <Button Content="{x:Bind helpers:MainResourceKeys.NullSetting}"

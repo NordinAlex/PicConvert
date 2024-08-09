@@ -41,7 +41,7 @@ namespace PicConvert.ViewModels
 		private int quality = 75; // Default quality
 
 		[ObservableProperty]
-		private int size = 50; // Default size
+		private int size = 100; // Default size
 
 		[ObservableProperty]
 		private bool skipMetadata;
@@ -81,7 +81,7 @@ namespace PicConvert.ViewModels
 		private void DefaultSetting()
 		{
 			Quality = 75;
-			Size = 50;
+			Size = 100;
 			SkipMetadata = false;
 		}
 		// När SelectedFormat ändras, kontrollera om det är PDF
@@ -102,7 +102,7 @@ namespace PicConvert.ViewModels
 
 			openPicker.ViewMode = PickerViewMode.Thumbnail;
 			openPicker.SuggestedStartLocation = PickerLocationId.PicturesLibrary;
-			foreach (var format in Enum.GetValues(typeof(ImageFormats)).Cast<ImageFormats>())
+			foreach (var format in Enum.GetValues(typeof(InputImageFormats)).Cast<InputImageFormats>())
 			{
 				openPicker.FileTypeFilter.Add(FileFormatHelper.GetFileExtension(format));
 			}
@@ -187,7 +187,7 @@ namespace PicConvert.ViewModels
 				int totalFiles = InputImages.Count;
 				int processedFiles = 0;
 
-				if (SelectedFormat.ToString() == "PDF")
+				if (SelectedFormat.ToString() == "PDF" && MergeToPdf == true)
 				{
 					var pdfFilePath = Path.Combine(SelectedFolder.Path, "MergedImages.pdf");
 					await conversionService.MergeImagesToPdfAsync(InputImages.Select(file => new FileItem

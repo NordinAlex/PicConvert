@@ -16,12 +16,12 @@ namespace PicConvert.Core.Services
 			{
 				image.Quality = quality;
 
-				if (!string.IsNullOrEmpty(size))
+				if (!string.IsNullOrEmpty(size) && size != "100")
 				{
-					var dimensions = size.Split('x');
-					if (dimensions.Length == 2 && int.TryParse(dimensions[0], out int width) && int.TryParse(dimensions[1], out int height))
+					if (int.TryParse(size, out int percentage))
 					{
-						image.Resize(width, height);
+						// Skala bilden baserat på procentsatsen
+						image.Resize(new Percentage(percentage));
 					}
 				}
 
@@ -49,7 +49,7 @@ namespace PicConvert.Core.Services
 
 					// Skapa en ny instans av MagickImage för varje bild
 					var magickImage = new MagickImage(image.Path);
-					magickImage.Quality = quality;
+					magickImage.Quality = quality;					
 
 					// Lägg till bilden i listan
 					imageList.Add(magickImage);
