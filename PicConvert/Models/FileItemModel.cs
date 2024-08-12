@@ -9,6 +9,7 @@ namespace PicConvert.Models
 		public string Name { get; set; }		
 		public string Format { get; set; }
 		public int Size { get; set; }
+		public string DisplaySize { get; set; }
 		public string Path { get; set; }
 		public bool IsSelected
 		{

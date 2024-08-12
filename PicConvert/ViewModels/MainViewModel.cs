@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.UI.Xaml.Controls;
+using Microsoft.Windows.ApplicationModel.Resources;
 using PicConvert.Contracts.Services;
 using PicConvert.Core.Contracts.Services;
 using PicConvert.Core.Models;
@@ -26,6 +27,7 @@ namespace PicConvert.ViewModels
 	{
 		private CancellationTokenSource cancellationTokenSource;
 		private readonly IDialogService _dialogService;
+		private readonly ResourceLoader _loader;
 
 		// Observable properties automatically notify the UI when they change
 		[ObservableProperty]
@@ -69,6 +71,7 @@ namespace PicConvert.ViewModels
 		{
 			// Initialize commands with their respective methods
 			_dialogService = dialogService;
+			_loader = new ResourceLoader();
 			OpenFilePickerCommand = new RelayCommand(async () => await OpenFilePickerAsync());
 			SelectAllCommand = new RelayCommand(SelectAllFiles);
 			RemoveSelectedCommand = new RelayCommand(async () => await RemoveSelectedFilesAsync());
@@ -84,7 +87,7 @@ namespace PicConvert.ViewModels
 			Size = 100;
 			SkipMetadata = false;
 		}
-		// När SelectedFormat ändras, kontrollera om det är PDF
+		// when the selected format changes, check if it is PDF
 		partial void OnSelectedFormatChanged(object value)
 		{
 			IsPdfSelected = value != null && value.Equals(ImageFormats.PDF);
@@ -119,7 +122,8 @@ namespace PicConvert.ViewModels
 						Path = file.Path,
 						Name = file.Name,
 						Format = file.FileType,
-						Size = (int)(properties.Size / 1024), // size in KB
+						Size = (int)(properties.Size / 1024), // size in KB		
+						DisplaySize = properties.Size < 1024 * 1024 ? $"{properties.Size / 1024} KB" : $"{properties.Size / (1024 * 1024):F2} MB",
 						IsSelected = false
 					};
 				});
@@ -157,7 +161,9 @@ namespace PicConvert.ViewModels
 			var filesToRemove = InputImages.Where(file => file.IsSelected).ToList();
 			if (!filesToRemove.Any())
 			{
-				await _dialogService.ShowMessageDialogAsync("Error", "No files selected to remove.");
+				await _dialogService.ShowMessageDialogAsync(
+					_loader.GetString("Main_RemoveSelectedFiles_CD_Title"),
+					_loader.GetString("Main_RemoveSelectedFiles_CD_Content"));
 				return;
 			}
 
@@ -166,6 +172,9 @@ namespace PicConvert.ViewModels
 				InputImages.Remove(file);
 			}
 		}
+
+
+		// Method to convert selected files to the selected format
 		private async Task ConvertFilesAsync()
 		{
 			if (!await ValidateInputsAsync()) return;
@@ -178,7 +187,9 @@ namespace PicConvert.ViewModels
 			Action<int> reportProgress = value =>
 			{
 				progressDialog.SetProgress(value);
-				progressDialog.SetStatus($"Converting... {value}% complete");
+				progressDialog.SetStatus($"{_loader.GetString("Main_ConvertFiles_CD_Converting")}, {value}% {_loader.GetString("Main_ConvertFiles_CD_complete")}");
+
+
 			};
 
 			try
@@ -198,7 +209,9 @@ namespace PicConvert.ViewModels
 						Size = file.Size
 					}), pdfFilePath, Quality, cancellationTokenSource.Token);
 					progressDialog.Hide();
-					await _dialogService.ShowMessageDialogAsync("Complete", "Images have been successfully merged into a PDF.");
+					await _dialogService.ShowMessageDialogAsync(
+						_loader.GetString("Main_ConvertFiles_CD_OK_PDF_Title"),
+						_loader.GetString("Main_ConvertFiles_CD_OK_PDF_Content"));
 				}
 				else
 				{
@@ -218,15 +231,19 @@ namespace PicConvert.ViewModels
 						processedFiles++;
 						reportProgress((int)((processedFiles / (double)totalFiles) * 100));
 					}
-					progressDialog.Hide();
-					await _dialogService.ShowMessageDialogAsync("Complete", "Files have been successfully converted.");
+					progressDialog.Hide();					
+					await _dialogService.ShowMessageDialogAsync(
+						_loader.GetString("Main_ConvertFiles_CD_OK_Title"),
+						_loader.GetString("Main_ConvertFiles_CD_OK_Content"));
 				}
 
 				progressDialog.Hide();
 			}
 			catch (OperationCanceledException)
-			{
-				await _dialogService.ShowMessageDialogAsync("Cancelled", "Conversion process was cancelled.");
+			{				
+				await _dialogService.ShowMessageDialogAsync(
+						_loader.GetString("Main_ConvertFiles_CD_Cancelled_Title"),
+						_loader.GetString("Main_ConvertFiles_CD_Cancelled_Content"));
 			}
 			finally
 			{
@@ -234,60 +251,6 @@ namespace PicConvert.ViewModels
 			}
 		}
 
-
-		// Method to handle file conversion
-		//private async Task ConvertFilesAsync()
-		//{
-		//	if (!await ValidateInputsAsync()) return;
-
-		//	// Create a cancellation token source to allow cancellation of the conversion process
-		//	cancellationTokenSource = new CancellationTokenSource();
-
-		//	// Show progress dialog
-		//	var progressDialog = await _dialogService.ShowProgressDialogAsync(cancellationTokenSource);		
-		//	Action<int> reportProgress = value =>
-		//	{
-		//		progressDialog.SetProgress(value);
-		//		progressDialog.SetStatus($"Converting... {value}% complete");
-		//	};
-
-		//	try
-		//	{
-
-		//		var conversionService = App.GetService<IFileConversionService>();
-		//		int totalFiles = InputImages.Count;
-		//		int processedFiles = 0;
-
-		//		foreach (var file in InputImages)
-		//		{
-		//			cancellationTokenSource.Token.ThrowIfCancellationRequested();
-
-		//			var newFilePath = Path.Combine(SelectedFolder.Path, file.Name);
-		//			await conversionService.ConvertFileAsync(new FileItem
-		//			{
-		//				Path = file.Path,
-		//				Name = file.Name,
-		//				Format = file.Format.ToString(),
-		//				Size = file.Size
-		//			}, SelectedFormat.ToString(), Quality, Size.ToString(), SkipMetadata, newFilePath, cancellationTokenSource.Token, mergeToPdf);
-
-		//			processedFiles++;
-		//			reportProgress((int)((processedFiles / (double)totalFiles) * 100));
-		//		}
-
-		//		progressDialog.Hide();
-
-		//		await _dialogService.ShowMessageDialogAsync("Complete", "Files have been successfully converted.");
-		//	}
-		//	catch (OperationCanceledException)
-		//	{
-		//		await _dialogService.ShowMessageDialogAsync("Cancelled", "Conversion process was cancelled.");
-		//	}
-		//	finally
-		//	{
-		//		progressDialog.Hide(); // Ensure dialog is closed in case of cancellation
-		//	}
-		//}
 
 		// Method to select a folder for saving converted files
 		private async Task SelectFolderAsync()
@@ -309,13 +272,17 @@ namespace PicConvert.ViewModels
 		private async Task<bool> ValidateInputsAsync()
 		{
 			if (InputImages == null || !InputImages.Any())
-			{
-				await _dialogService.ShowMessageDialogAsync("Error", "Please select files to convert.");
+			{				
+				await _dialogService.ShowMessageDialogAsync(
+						_loader.GetString("Main_ValidateInputs_CD_InputImages_Title"),
+						_loader.GetString("Main_ValidateInputs_CD_InputImages_Content"));
 				return false;
 			}
 			if (SelectedFolder == null)
-			{
-				await _dialogService.ShowMessageDialogAsync("Error", "Please select a folder to save the files.");
+			{				
+				await _dialogService.ShowMessageDialogAsync(
+						_loader.GetString("Main_ValidateInputs_CD_SelectedFolder_Title"),
+						_loader.GetString("Main_ValidateInputs_CD_SelectedFolder_Content"));
 				return false;
 			}
 

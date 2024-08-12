@@ -135,6 +135,36 @@
   <data name="ConDialog_RestartDialogTitle" xml:space="preserve">
     <value>Restart required</value>
   </data>
+  <data name="Main_ConvertFiles_CD_Cancelled_Content" xml:space="preserve">
+    <value>Conversion process was cancelled.</value>
+  </data>
+  <data name="Main_ConvertFiles_CD_Cancelled_Title" xml:space="preserve">
+    <value>Cancelled</value>
+  </data>
+  <data name="Main_ConvertFiles_CD_complete" xml:space="preserve">
+    <value>complete</value>
+  </data>
+  <data name="Main_ConvertFiles_CD_Converting" xml:space="preserve">
+    <value>Converting...</value>
+  </data>
+  <data name="Main_ConvertFiles_CD_OK_Content" xml:space="preserve">
+    <value>Files have been successfully converted.</value>
+  </data>
+  <data name="Main_ConvertFiles_CD_OK_PDF_Content" xml:space="preserve">
+    <value>Images have been successfully merged into a PDF.</value>
+  </data>
+  <data name="Main_ConvertFiles_CD_OK_PDF_Title" xml:space="preserve">
+    <value>Complete</value>
+  </data>
+  <data name="Main_ConvertFiles_CD_OK_Title" xml:space="preserve">
+    <value>Complete</value>
+  </data>
+  <data name="Main_RemoveSelectedFiles_CD_Content" xml:space="preserve">
+    <value>No files selected to remove.</value>
+  </data>
+  <data name="Main_RemoveSelectedFiles_CD_Title" xml:space="preserve">
+    <value>Notice</value>
+  </data>
   <data name="Main_ResourceKeys_Convert" xml:space="preserve">
     <value>Convert</value>
   </data>
@@ -167,6 +197,18 @@
   </data>
   <data name="Main_ResourceKeys_SkipMetadata" xml:space="preserve">
     <value>Skip Metadata</value>
+  </data>
+  <data name="Main_ValidateInputs_CD_InputImages_Content" xml:space="preserve">
+    <value>Please select files to convert.</value>
+  </data>
+  <data name="Main_ValidateInputs_CD_InputImages_Title" xml:space="preserve">
+    <value>Notice</value>
+  </data>
+  <data name="Main_ValidateInputs_CD_SelectedFolder_Content" xml:space="preserve">
+    <value>Please select a folder to save the files.</value>
+  </data>
+  <data name="Main_ValidateInputs_CD_SelectedFolder_Title" xml:space="preserve">
+    <value>Notice</value>
   </data>
   <data name="SettingsPage_PrivacyTermsLink.Content" xml:space="preserve">
     <value>Privacy</value>
