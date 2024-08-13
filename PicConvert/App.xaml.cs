@@ -10,6 +10,7 @@ using PicConvert.Models;
 using PicConvert.Services;
 using PicConvert.ViewModels;
 using PicConvert.Views;
+using PicConvert.Views.CustomDialogViews;
 using System;
 
 namespace PicConvert

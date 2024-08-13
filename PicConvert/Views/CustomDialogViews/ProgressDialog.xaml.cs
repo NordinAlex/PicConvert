@@ -1,8 +1,11 @@
 using Microsoft.UI.Xaml.Controls;
 using System.Threading;
 
-namespace PicConvert.Views
+
+
+namespace PicConvert.Views.CustomDialogViews
 {
+
 	public sealed partial class ProgressDialog : ContentDialog
 	{
 		private CancellationTokenSource cancellationTokenSource;

@@ -1,6 +1,8 @@
-﻿using Microsoft.UI.Xaml.Controls;
+﻿using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
 using PicConvert.Contracts.Services;
 using PicConvert.Views;
+using PicConvert.Views.CustomDialogViews;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -47,4 +49,19 @@ public class DialogService : IDialogService
 
 		return await Task.FromResult(progressDialog); 
 	}
+
+	public async Task ShowThirdPartyLicensesDialogAsync()
+	{
+		var dialog = new ThirdPartyLicensesDialog();
+		dialog.XamlRoot = App.MainWindow.Content.XamlRoot;
+		await dialog.ShowAsync();
+	}
+
+	private async void ShowLicenseDialog()
+	{
+		var licenseDialog = new LicenseDialog(); // Skapa en instans av ContentDialog
+		licenseDialog.XamlRoot = App.MainWindow.Content.XamlRoot;
+		await licenseDialog.ShowAsync(); // Visa dialogen asynkront
+	}
+
 }

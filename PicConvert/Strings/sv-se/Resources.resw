@@ -210,6 +210,12 @@
   <data name="Main_ValidateInputs_CD_SelectedFolder_Title" xml:space="preserve">
     <value>Notice</value>
   </data>
+  <data name="SettingsPage_GitHubLink.Content" xml:space="preserve">
+    <value>GitHub</value>
+  </data>
+  <data name="SettingsPage_GitHubLink.NavigateUri" xml:space="preserve">
+    <value>https://github.com/NordinAlex/PicConvert</value>
+  </data>
   <data name="SettingsPage_PrivacyTermsLink.Content" xml:space="preserve">
     <value>Sekretesspolicy</value>
   </data>
@@ -220,7 +226,7 @@
     <value>Om denna applikation</value>
   </data>
   <data name="Settings_AboutDescription.Text" xml:space="preserve">
-    <value>TODO: Ersätt med din appbeskrivning. </value>
+    <value>PicConvert är en bildkonverteringsapplikation som låter användare välja flera bildfiler, justera inställningar som format, kvalitet och storlek, och sedan konvertera dessa bilder till önskat format. Konverteringsprocessen utförs med hjälp av ImageMagick, ett kraftfullt bildbehandlingsbibliotek.</value>
   </data>
   <data name="Settings_Languages.Text" xml:space="preserve">
     <value>Språk</value>

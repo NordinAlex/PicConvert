@@ -39,40 +39,19 @@
             ExpandedModeThresholdWidth="1280"
             DisplayModeChanged="NavigationViewControl_DisplayModeChanged"
              Header="{x:Null}">
-            <!--Header="{x:Bind ((ContentControl)ViewModel.Selected).Content, Mode=OneWay}">-->
+           
             <NavigationView.MenuItems>               
                 <NavigationViewItem x:Uid="Shell_Main" helpers:NavigationHelper.NavigateTo="PicConvert.ViewModels.MainViewModel">
                     <NavigationViewItem.Icon>
                         <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE8B9;"/>
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
-            </NavigationView.MenuItems>
-            <!--<NavigationView.HeaderTemplate>
-                <DataTemplate>
-                    <Grid>
-                        <TextBlock
-                            Text="{Binding}"
-                            Style="{ThemeResource TitleTextBlockStyle}" />
-                    </Grid>
-                </DataTemplate>
-            </NavigationView.HeaderTemplate>-->
-            <!--<i:Interaction.Behaviors>
-                <behaviors:NavigationViewHeaderBehavior
-                    DefaultHeader="{x:Bind ((ContentControl)ViewModel.Selected).Content, Mode=OneWay}">
-                    <behaviors:NavigationViewHeaderBehavior.DefaultHeaderTemplate>
-                        <DataTemplate>
-                            <Grid>
-                                <TextBlock
-                                    Text="{Binding}"
-                                    Style="{ThemeResource TitleTextBlockStyle}" />
-                            </Grid>
-                        </DataTemplate>
-                    </behaviors:NavigationViewHeaderBehavior.DefaultHeaderTemplate>
-                </behaviors:NavigationViewHeaderBehavior>
-            </i:Interaction.Behaviors>-->
-            <Grid Margin="{StaticResource NavigationViewPageContentMargin}">
-                <Frame x:Name="NavigationFrame" />
-            </Grid>
+            </NavigationView.MenuItems>           
+            
+                <ScrollViewer VerticalScrollMode="Auto" HorizontalScrollMode="Disabled" Margin="20" Padding="10" >
+                    <Frame x:Name="NavigationFrame" />
+                </ScrollViewer>
+            
         </NavigationView>
     </Grid>
 </Page>
