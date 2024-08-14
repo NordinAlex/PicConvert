@@ -46,11 +46,13 @@
                         <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE8B9;"/>
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
-            </NavigationView.MenuItems>           
+            </NavigationView.MenuItems>
+
+            <Grid Margin="10">
+                <Frame x:Name="NavigationFrame" />
+            </Grid>
             
-                <ScrollViewer VerticalScrollMode="Auto" HorizontalScrollMode="Disabled" Margin="20" Padding="10" >
-                    <Frame x:Name="NavigationFrame" />
-                </ScrollViewer>
+             
             
         </NavigationView>
     </Grid>

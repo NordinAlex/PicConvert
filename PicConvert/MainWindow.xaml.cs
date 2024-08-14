@@ -22,7 +22,12 @@ public sealed partial class MainWindow : WindowEx
 		// Theme change code picked from https://github.com/microsoft/WinUI-Gallery/pull/1239
 		dispatcherQueue = Microsoft.UI.Dispatching.DispatcherQueue.GetForCurrentThread();
 		settings = new UISettings();
-		settings.ColorValuesChanged += Settings_ColorValuesChanged; // cannot use FrameworkElement.ActualThemeChanged event
+		settings.ColorValuesChanged += Settings_ColorValuesChanged;
+		// MinHeight="400" MinWidth="800"
+		this.Width = 1140;
+		this.MinHeight = 670;
+		this.MinWidth = 900;
+		
 	}
 
 	// this handles updating the caption button colors correctly when indows system theme is changed

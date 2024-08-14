@@ -11,99 +11,99 @@
      xmlns:coreModels="using:PicConvert.Core.Models" 
      d:DataContext="{d:DesignInstance Type=viewModels:MainViewModel}"
      mc:Ignorable="d"   
-     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+     >
 
-    
 
-    <Grid Padding="20">
+    <Grid Padding="10">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2*" />
-            <ColumnDefinition Width="3*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
 
-        <!-- Vänster sektion: Välja filer -->
-        <StackPanel Grid.Column="0" VerticalAlignment="Top" Padding="10">
-            <Button Content="{x:Bind helpers:MainResourceKeys.InputImages}"
-             Command="{Binding OpenFilePickerCommand}"
-             HorizontalAlignment="Left"
-             Margin="0,0,0,10"/>
+        <!-- Vänster sektion: Bilder -->
+        <Grid Grid.Column="0"  Padding="10" Margin="10" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+            <Grid.RowDefinitions>
+                <!-- Knapp överst -->
+                <RowDefinition Height="Auto" />
+                <!-- Rubriker -->
+                <RowDefinition Height="Auto" />
+                <!-- ListView som fyller tillgänglig plats och har scrollbar -->
+                <RowDefinition Height="*" />
+                <!-- Knappar längst ner -->
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
 
-            <!-- ScrollViewer för ListView med rubriker -->
-            <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Padding="10">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <!-- För rubriker -->
-                        <RowDefinition Height="300"/>
-                        <!-- För data -->
-                    </Grid.RowDefinitions>
+            <!-- Knapp för att öppna filväljaren -->
+            <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Left" Padding="10" Margin="5">
+                <Button Content="{x:Bind helpers:MainResourceKeys.InputImages}"
+                        Command="{Binding OpenFilePickerCommand}"
+                        HorizontalAlignment="Left"
+                        Margin="0,0,0,10"/>
+            </StackPanel>
 
-                    <!-- Rubriker -->
-                    <Grid Grid.Row="0" Background="LightGray">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="40"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Text="{x:Bind helpers:MainResourceKeys.SelectAll}" Grid.Column="0" Padding="5,20"/>
-                        <TextBlock Text="Name" Grid.Column="1" Padding="20"/>
-                        <TextBlock Text="Format" Grid.Column="2" Padding="20"/>
-                        <TextBlock Text="Size" Grid.Column="3" Padding="20"/>
-                    </Grid>
+            <!-- Rubriker -->
+            <Grid Grid.Row="1" Background="{ThemeResource AppBarBackgroundThemeBrush}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="40"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="{x:Bind helpers:MainResourceKeys.SelectAll}" Grid.Column="0" Padding="5,20"/>
+                <TextBlock Text="Name" Grid.Column="1" Padding="20"/>
+                <TextBlock Text="Format" Grid.Column="2" Padding="20"/>
+                <TextBlock Text="Size" Grid.Column="3" Padding="20"/>
+            </Grid>
 
-                    <!-- Data -->
-                    <ListView Grid.Row="1" ItemsSource="{Binding InputImages}"
-                       SelectionMode="None"
-                       HorizontalAlignment="Stretch"
-                       MaxHeight="400">
-                        <!-- Justera MaxHeight efter behov -->
-                        <ListView.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <VirtualizingStackPanel/>
-                            </ItemsPanelTemplate>
-                        </ListView.ItemsPanel>
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="40"/>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition Width="Auto"/>
-                                    </Grid.ColumnDefinitions>
-                                    <CheckBox IsChecked="{Binding IsSelected, Mode=TwoWay}" VerticalAlignment="Center" Padding="0"  Grid.Column="0"/>
-                                    <TextBlock Text="{Binding Name}" VerticalAlignment="Center" Grid.Column="1" Padding="10"/>
-                                    <TextBlock Text="{Binding Format}" VerticalAlignment="Center" Grid.Column="2" Padding="10"/>
-                                    <TextBlock Text="{Binding DisplaySize}" VerticalAlignment="Center" Grid.Column="3" Padding="10"/>
-                                </Grid>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
-                </Grid>
+            <!-- ListView med ScrollViewer -->
+            <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                <ListView ItemsSource="{Binding InputImages}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <VirtualizingStackPanel/>
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="40"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <CheckBox IsChecked="{Binding IsSelected, Mode=TwoWay}" VerticalAlignment="Center" Padding="0" Grid.Column="0"/>
+                                <TextBlock Text="{Binding Name}" VerticalAlignment="Center" Grid.Column="1" Padding="10"/>
+                                <TextBlock Text="{Binding Format}" VerticalAlignment="Center" Grid.Column="2" Padding="10"/>
+                                <TextBlock Text="{Binding DisplaySize}" VerticalAlignment="Center" Grid.Column="3" Padding="10"/>
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
             </ScrollViewer>
 
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,10,0,0">
+            <!-- Knappar längst ner -->
+            <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Left" Margin="20">
                 <Button Content="{x:Bind helpers:MainResourceKeys.SelectAll}"
-                 Command="{Binding SelectAllCommand}"
-                 Margin="0,0,10,0"/>
+                        Command="{Binding SelectAllCommand}"
+                        Margin="0,0,10,0"/>
                 <Button Content="{x:Bind helpers:MainResourceKeys.RemoveSelected}"
-                 Command="{Binding RemoveSelectedCommand}"
-                 Margin="0,0,10,0"/>
+                        Command="{Binding RemoveSelectedCommand}"
+                        Margin="0,0,10,0"/>
             </StackPanel>
-        </StackPanel>
+        </Grid>
 
         <!-- Höger sektion: Inställningar -->
-        <StackPanel Grid.Column="1" VerticalAlignment="Top">
+        <StackPanel Grid.Column="1" MinWidth="320" Padding="10" Margin="10" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
             <TextBlock Text="{x:Bind helpers:MainResourceKeys.Settings}" FontSize="20" Margin="0,0,0,10"/>
 
             <TextBlock Text="{x:Bind helpers:MainResourceKeys.Format}" FontSize="16" Margin="0,0,0,5"/>
             <ComboBox x:Name="ImageFormatComboBox"
-          ItemsSource="{x:Bind FileFormats}"
-          SelectedItem="{Binding SelectedFormat, Mode=TwoWay}"
-          Margin="0,0,0,10"
-          VerticalAlignment="Center"
-          Width="200">
+                      ItemsSource="{x:Bind FileFormats}"
+                      SelectedItem="{Binding SelectedFormat, Mode=TwoWay}"
+                      Margin="0,0,0,10"
+                      VerticalAlignment="Center"
+                      Width="200">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding}"/>
@@ -111,14 +111,12 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
 
-
-
             <TextBlock Text="{x:Bind helpers:MainResourceKeys.Quality}" FontSize="16" Margin="0,0,0,5"/>
             <Slider x:Name="QualitySlider"
-            Minimum="5"
-            Maximum="100"
-            Value="{Binding Quality, Mode=TwoWay}"
-            Margin="0,0,0,10"/>
+                    Minimum="5"
+                    Maximum="100"
+                    Value="{Binding Quality, Mode=TwoWay}"
+                    Margin="0,0,0,10"/>
 
             <TextBlock Text="{x:Bind helpers:MainResourceKeys.Size}" FontSize="16" Margin="0,0,0,5"/>
             <Slider x:Name="SizeSlider"
@@ -128,35 +126,35 @@
                     Margin="0,0,0,10"/>
 
             <CheckBox x:Name="SkipMetadataCheckBox"
-          Content="{x:Bind helpers:MainResourceKeys.SkipMetadata}"
-          IsChecked="{Binding SkipMetadata, Mode=TwoWay}"
-          Margin="0,0,0,10"/>
+                      Content="{x:Bind helpers:MainResourceKeys.SkipMetadata}"
+                      IsChecked="{Binding SkipMetadata, Mode=TwoWay}"
+                      Margin="0,0,0,10"/>
 
-
-            <CheckBox
-            x:Name="MergeToPdfCheckBox"
-            Content="Merge images into a single PDF"
-            IsChecked="{Binding MergeToPdf, Mode=TwoWay}"
-            IsEnabled="{Binding IsPdfSelected, Mode=TwoWay}"
-            Margin="0,0,0,10"/>
-
-
+            <CheckBox x:Name="MergeToPdfCheckBox"
+                      Content="Merge images into a single PDF"
+                      IsChecked="{Binding MergeToPdf, Mode=TwoWay}"
+                      IsEnabled="{Binding IsPdfSelected, Mode=TwoWay}"
+                      Margin="0,0,0,10"/>
 
             <Button Content="{x:Bind helpers:MainResourceKeys.NullSetting}"
-          Command="{Binding NullSettingCommand}"
-          HorizontalAlignment="Left"
-          Margin="0,10,0,10"/>
+                    Command="{Binding NullSettingCommand}"
+                    HorizontalAlignment="Left"
+                    Margin="0,10,0,10"/>
 
-            <Button Content="{x:Bind helpers:MainResourceKeys.SelectFolder}"
-          Command="{Binding SelectFolderCommand}"
-          HorizontalAlignment="Left"
-          Margin="0,10,0,10"/>
-
-            <Button Content="{x:Bind helpers:MainResourceKeys.Convert}"
-          Command="{Binding ConvertCommand}"
-          HorizontalAlignment="Left"
-          Margin="0,10,0,10"/>
-        </StackPanel>
         
+            <StackPanel  Orientation="Horizontal" HorizontalAlignment="Left" >
+                <Button Content="{x:Bind helpers:MainResourceKeys.SelectFolder}"
+                        Command="{Binding SelectFolderCommand}"
+                        HorizontalAlignment="Left"
+                        Margin="0,10,10,10"/>
+
+                <Button Content="{x:Bind helpers:MainResourceKeys.Convert}"
+                        Command="{Binding ConvertCommand}"
+                        HorizontalAlignment="Left"
+                        Margin="0,10,10,10"/>
+
+            </StackPanel>
+        </StackPanel>
     </Grid>
+
 </Page>
