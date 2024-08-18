@@ -13,7 +13,7 @@ using System.Globalization;
 using System.Reflection;
 using System.Windows.Input;
 using Windows.ApplicationModel;
-
+using Windows.ApplicationModel.Core;
 using Windows.Globalization;
 
 namespace PicConvert.ViewModels;
@@ -89,15 +89,23 @@ public partial class SettingsViewModel : ObservableRecipient
 			RestartApplication();
 		}
 	}
-	private void RestartApplication()
+	private static void RestartApplication()
 	{
-		var process = new ProcessStartInfo
+		// The restart will be executed immediately.
+		AppRestartFailureReason failureReason = Microsoft.Windows.AppLifecycle.AppInstance.Restart(string.Empty);
+
+		// If the restart fails, handle it here.
+		switch (failureReason)
 		{
-			FileName = Process.GetCurrentProcess().MainModule.FileName,
-			UseShellExecute = true
-		};
-		Process.Start(process);
-		Application.Current.Exit();
+			case AppRestartFailureReason.RestartPending:
+				break;
+			case AppRestartFailureReason.NotInForeground:
+				break;
+			case AppRestartFailureReason.InvalidUser:
+				break;
+			default:
+				break;
+		}
 	}
 
 

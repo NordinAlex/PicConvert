@@ -13,8 +13,7 @@
         <Grid x:Name="AppTitleBar"
               Canvas.ZIndex="1"
               Height="{Binding ElementName=NavigationViewControl, Path=CompactPaneLength}"
-              IsHitTestVisible="True"
-              Margin="17,0"
+              IsHitTestVisible="True"              
               VerticalAlignment="Top">           
             <Image Source="/Assets/WindowIcon.ico"
                    HorizontalAlignment="Left"
@@ -34,7 +33,7 @@
             SelectedItem="{x:Bind ViewModel.Selected, Mode=OneWay}"
             IsSettingsVisible="True"
             PaneDisplayMode="Top"          
-            Margin="0,30,0,0" 
+            Margin="0,35,0,0" 
             
             ExpandedModeThresholdWidth="1280"
             DisplayModeChanged="NavigationViewControl_DisplayModeChanged"
