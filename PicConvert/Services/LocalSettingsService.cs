@@ -50,7 +50,7 @@ public class LocalSettingsService : ILocalSettingsService
 		}
 	}
 
-	public async Task<T?> ReadSettingAsync<T>(string key)
+	public async Task<T> ReadSettingAsync<T>(string key)
 	{
 		if (RuntimeHelper.IsMSIX)
 		{

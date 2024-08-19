@@ -175,7 +175,7 @@
     <value>Välj filer</value>
   </data>
   <data name="Main_ResourceKeys_NullSetting" xml:space="preserve">
-    <value>Null inställning</value>
+    <value>Förvalt värde</value>
   </data>
   <data name="Main_ResourceKeys_Quality" xml:space="preserve">
     <value>Kvalitet</value>
@@ -248,5 +248,17 @@
   </data>
   <data name="Shell_Main.Content" xml:space="preserve">
     <value>Konvertera</value>
+  </data>
+  <data name="Main_LeftSection_Header_Select.Text" xml:space="preserve">
+    <value>Välja</value>
+  </data>
+  <data name="Main_LeftSection_Header_Name.Text" xml:space="preserve">
+    <value>Namn</value>
+  </data>
+  <data name="Main_LeftSection_Header_Format.Text" xml:space="preserve">
+    <value>Format</value>
+  </data>
+  <data name="Main_LeftSection_Header_Size.Text" xml:space="preserve">
+    <value>Storlek</value>
   </data>
 </root>

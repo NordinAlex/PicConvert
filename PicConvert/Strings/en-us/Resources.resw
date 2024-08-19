@@ -175,7 +175,7 @@
     <value>Select files</value>
   </data>
   <data name="Main_ResourceKeys_NullSetting" xml:space="preserve">
-    <value>Null Setting</value>
+    <value>Default</value>
   </data>
   <data name="Main_ResourceKeys_Quality" xml:space="preserve">
     <value>Quality</value>
@@ -247,6 +247,18 @@
     <value>Light</value>
   </data>
   <data name="Shell_Main.Content" xml:space="preserve">
-    <value>Main</value>
+    <value>Convert</value>
+  </data>
+  <data name="Main_LeftSection_Header_Select.Text" xml:space="preserve">
+    <value>Choose</value>
+  </data>
+  <data name="Main_LeftSection_Header_Name.Text" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Main_LeftSection_Header_Format.Text" xml:space="preserve">
+    <value>Format</value>
+  </data>
+  <data name="Main_LeftSection_Header_Size.Text" xml:space="preserve">
+    <value>Size</value>
   </data>
 </root>
