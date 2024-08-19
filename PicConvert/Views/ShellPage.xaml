@@ -14,16 +14,16 @@
               Canvas.ZIndex="1"
               Height="{Binding ElementName=NavigationViewControl, Path=CompactPaneLength}"
               IsHitTestVisible="True"              
-              VerticalAlignment="Top">           
-            <Image Source="/Assets/WindowIcon.ico"
-                   HorizontalAlignment="Left"
-                   Width="16"
-                   Height="16" />
+              VerticalAlignment="Top">
+            <Image Source="/Assets/PicConvertIcon.ico"
+                   HorizontalAlignment="Left"                  
+                   Width="32"
+                   Height="32" />
             <TextBlock x:Name="AppTitleBarText"
                        VerticalAlignment="Center"
                        TextWrapping="NoWrap"
                        Style="{StaticResource CaptionTextBlockStyle}"
-                       Margin="28,0,0,0"/>
+                       Margin="38,0,0,0"/>
         </Grid>
         <NavigationView
             x:Name="NavigationViewControl"
