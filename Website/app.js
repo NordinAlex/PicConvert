@@ -44,36 +44,43 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
-
 document.addEventListener('DOMContentLoaded', function() {
     const checkbox = document.getElementById('language-toggle');
 
-    // Check if the user has selected a language
-    const language = localStorage.getItem('language');
-    
-    if (language === 'en') {
-        checkbox.checked = true;
-        // Redirect to the English version of the page if needed
-        if (window.location.pathname !== '/PicConvert/en/index.html') {
-            window.location.href = '/PicConvert/en/index.html';
-        }
-    } else {
-        checkbox.checked = false;
-        // Redirect to the Swedish version of the page if needed
-        if (window.location.pathname !== '/PicConvert/index.html') {
-            window.location.href = '/PicConvert/index.html';
+    // Check if the user has a language preference stored in localStorage
+    let language = localStorage.getItem('language');
+
+    // If localStorage is empty, detect the current page language based on URL
+    if (!language) {
+        if (window.location.pathname.includes('/en/')) {
+            language = 'en';
+            localStorage.setItem('language', 'en');
+        } else {
+            language = 'sv';
+            localStorage.setItem('language', 'sv');
         }
     }
 
+    // Update the checkbox based on the language
+    checkbox.checked = language === 'en';
+
+    // If the user is on the wrong language page, redirect them
+    if (language === 'en' && !window.location.pathname.includes('/en/')) {
+        window.location.href = '/en/index.html';
+    } else if (language === 'sv' && window.location.pathname.includes('/en/')) {
+        window.location.href = '/index.html';
+    }
+
+    // Listen for changes to the checkbox and redirect accordingly
     checkbox.addEventListener('change', function() {
         if (this.checked) {
             // Set language to English
             localStorage.setItem('language', 'en');
-            window.location.href = '/PicConvert/en/index.html'; // Redirect to the English page
+            window.location.href = '/en/index.html'; // Redirect to the English page
         } else {
             // Set language to Swedish
             localStorage.setItem('language', 'sv');
-            window.location.href = '/PicConvert/index.html'; // Redirect to the Swedish page
+            window.location.href = '/index.html'; // Redirect to the Swedish page
         }
     });
 });
