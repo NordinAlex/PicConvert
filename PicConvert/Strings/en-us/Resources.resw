@@ -220,7 +220,7 @@
     <value>Privacy</value>
   </data>
   <data name="SettingsPage_PrivacyTermsLink.NavigateUri" xml:space="preserve">
-    <value>https://github.com/NordinAlex/PicConvert</value>
+    <value>https://nordinalex.github.io/PicConvert/en/index.html#privacy</value>
   </data>
   <data name="Settings_About.Text" xml:space="preserve">
     <value>About this application</value>
