@@ -1,0 +1,58 @@
+<Page
+    x:Class="PicConvert.Views.ShellPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:helpers="using:PicConvert.Helpers"
+    xmlns:behaviors="using:PicConvert.Behaviors"
+    xmlns:i="using:Microsoft.Xaml.Interactivity"
+    Loaded="OnLoaded">
+
+    <Grid>
+        <Grid x:Name="AppTitleBar"
+              Canvas.ZIndex="1"
+              Height="{Binding ElementName=NavigationViewControl, Path=CompactPaneLength}"
+              IsHitTestVisible="True"              
+              VerticalAlignment="Top">
+            <Image Source="/Assets/PicConvertIcon.ico"
+                   HorizontalAlignment="Left"                  
+                   Width="32"
+                   Height="32" />
+            <TextBlock x:Name="AppTitleBarText"
+                       VerticalAlignment="Center"
+                       TextWrapping="NoWrap"
+                       Style="{StaticResource CaptionTextBlockStyle}"
+                       Margin="38,0,0,0"/>
+        </Grid>
+        <NavigationView
+            x:Name="NavigationViewControl"
+            Canvas.ZIndex="0"
+            IsBackButtonVisible="Collapsed"
+            IsBackEnabled="{x:Bind ViewModel.IsBackEnabled, Mode=OneWay}"
+            SelectedItem="{x:Bind ViewModel.Selected, Mode=OneWay}"
+            IsSettingsVisible="True"
+            PaneDisplayMode="Top"          
+            Margin="0,35,0,0" 
+            
+            ExpandedModeThresholdWidth="1280"
+            DisplayModeChanged="NavigationViewControl_DisplayModeChanged"
+             Header="{x:Null}">
+           
+            <NavigationView.MenuItems>               
+                <NavigationViewItem x:Uid="Shell_Main" helpers:NavigationHelper.NavigateTo="PicConvert.ViewModels.MainViewModel">
+                    <NavigationViewItem.Icon>
+                        <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE8B9;"/>
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+            </NavigationView.MenuItems>
+
+            <Grid Margin="10">
+                <Frame x:Name="NavigationFrame" />
+            </Grid>
+            
+             
+            
+        </NavigationView>
+    </Grid>
+</Page>
