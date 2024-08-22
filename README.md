@@ -1,7 +1,7 @@
 # PicConvert
 
 PicConvert är en avancerad och användarvänlig bildkonverteringsapplikation som låter dig hantera och konvertera dina bildfiler snabbt och effektivt. Applikationen utnyttjar ImageMagick, ett kraftfullt bildbehandlingsbibliotek, för att säkerställa högkvalitativa konverteringar.
-![Screenshot of PicConvert](./Website/Assets/Demo/Main_LightMode.webp)
+![Screenshot of PicConvert](./Website/Assets/Demo/Main.webp)
 ## Funktioner
 
 - **Konvertering av flera bildfiler:** Välj flera bilder samtidigt och konvertera dem till olika format, inklusive PNG, JPEG, och WebP.
