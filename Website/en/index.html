@@ -27,6 +27,8 @@
             <ul class="nav-links">
                 <li><a href="#features">Features</a></li>
                 <li><a href="#about">About</a></li>
+                <li><a href="#system-requirements">System Requirements</a></li>
+                <li><a href="#demo">Demo</a></li>
                 <li><a href="#privacy">Privacy</a></li>
                 <li><a href="https://github.com/NordinAlex/PicConvert" target="_blank" rel="noopener">Source Code</a></li>
                 <li>
@@ -46,7 +48,13 @@
         <div class="hero">
             <h1>Welcome to PicConvert</h1>
             <p class="hero-subtext">A powerful and simple application for managing and converting your images.</p>
-            <ms-store-badge productid="1231" window-mode="direct" language="en" theme="light" class="ms-store-button" animation="on"></ms-store-badge>
+            <p>
+                Coming soon to the Microsoft Store!
+            </p>
+            <div class="ms-off">              
+                <ms-store-badge productid="1231" window-mode="direct" language="en" theme="light" class="ms-store-button" animation="on"></ms-store-badge>
+            </div>
+           
         </div>
     </header>
 
@@ -96,7 +104,39 @@
             </p>
         </div>
     </section>
-
+    <section id="system-requirements" class="system-requirements-section">
+        <div class="system-requirements-container">
+            <h2>System Requirements</h2>
+            <ul>
+                <li>Operating System: Windows 10 version 1809 (10.0.17763) or later</li>
+                <li>Processor: At least 1 GHz or faster, 64-bit architecture recommended</li>
+                <li>RAM: At least 4 GB</li>
+                <li>Disk Space: At least 500 MB of free space</li>
+                <li>Display: Minimum resolution of 800x600, higher resolution recommended for better user experience</li>
+            </ul>
+        </div>
+    </section>
+    
+    <section id="demo" class="demo-section">
+        <div class="demo-container">
+            <h2>Demo and Screenshots</h2>
+            <p>Watch a quick walkthrough of how PicConvert works and see some screenshots of the application.</p>
+            <div class="video-container">
+                <iframe src="../Assets/Demo/PicConvert_Demo.mp4" title="PicConvert Demo"
+                    frameborder="0" autoplay; clipboard-write></iframe>
+            </div>
+            <div class="screenshots-grid">
+                <img src="../Assets/Demo/Main_DarkMode.webp" alt="Screenshot 1" class="screenshot" data-src="../Assets/Demo/Main_DarkMode.webp">
+                <img src="../Assets/Demo/Settings_DarkMode.webp" alt="Screenshot 2" class="screenshot"  data-src="../Assets/Demo/Settings_DarkMode.webp">
+                <img src="../Assets/Demo/Main_LightMode.webp" alt="Screenshot 3" class="screenshot"  data-src="../Assets/Demo/Main_LightMode.webp">
+            </div>
+        </div>
+        <div id="image-modal" class="modal">
+            <span class="close">&times;</span>
+            <img class="modal-content" id="modal-img" alt="Modal Image">
+        </div>
+    </section>
+    
     <section id="privacy" class="privacy-section">
         <div class="privacy-container">
             <h2>Privacy Policy</h2>
@@ -117,8 +157,10 @@
 
             <h3>4. Contact</h3>
             <p>
-                If you have any questions or concerns about our privacy policy, please contact us through our <a href="https://github.com/NordinAlex/PicConvert">GitHub page</a>.
+                If you have any questions or suggestions, feel free to <a href="mailto:alexnordin.dev@hotmail.com">contact me via email</a> or create an issue on 
+                <a href="https://github.com/NordinAlex/PicConvert" target="_blank" rel="noopener">GitHub</a>.
             </p>
+            
         </div>
     </section>
 

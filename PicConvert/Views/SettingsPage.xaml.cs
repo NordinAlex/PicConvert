@@ -8,7 +8,6 @@ using System;
 
 namespace PicConvert.Views;
 
-// TODO: Set the URL for your privacy policy by updating SettingsPage_PrivacyTermsLink.NavigateUri in Resources.resw.
 public sealed partial class SettingsPage : Page
 {
 	public SettingsViewModel ViewModel
@@ -34,13 +33,13 @@ public sealed partial class SettingsPage : Page
 	// Visa ContentDialog
 	private async void ShowLicenseDialog()
 	{
-		var licenseDialog = new LicenseDialog(); // Skapa en instans av ContentDialog
+		var licenseDialog = new LicenseDialog(); 
 		licenseDialog.XamlRoot = App.MainWindow.Content.XamlRoot;
-		await licenseDialog.ShowAsync(); // Visa dialogen asynkront
+		await licenseDialog.ShowAsync(); 
 	}
 	private void ShowLicenseButton_Click(object sender, RoutedEventArgs e)
 	{
-		ShowLicenseDialog(); // Anropa metoden som visar dialogen
+		ShowLicenseDialog(); 
 	}
 
 }

@@ -1,19 +1,29 @@
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", () => {
     const logo = document.querySelector('.logo');
     const menuIcon = document.querySelector('.menu-icon');
     const navLinks = document.querySelector('.nav-links');
     const links = document.querySelectorAll('.nav-links a');
+    const checkbox = document.getElementById('language-toggle');
+    const screenshots = document.querySelectorAll('.screenshot');
+    const modal = document.getElementById('image-modal');
+    const modalImg = document.getElementById('modal-img');
+    const closeBtn = document.querySelector('.close');
 
-    logo.addEventListener('click', function() {
-        window.location.href = '/';
-    });
+    // Function to toggle body scroll
+    function toggleBodyScroll(disableScroll) {
+        document.body.style.overflow = disableScroll ? 'hidden' : 'auto';
+    }
 
+    // Handle logo click - Redirect to home
+    logo.addEventListener('click', () => window.location.href = '/');
+
+    // Handle menu icon click - Toggle navigation menu
     menuIcon.addEventListener('click', () => {
         navLinks.classList.toggle('active');
         toggleBodyScroll(navLinks.classList.contains('active'));
     });
 
-    // Close the menu when a link is clicked
+    // Close menu when a link is clicked
     links.forEach(link => {
         link.addEventListener('click', () => {
             navLinks.classList.remove('active');
@@ -21,7 +31,7 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 
-    // close the menu when clicking outside
+    // Close menu when clicking outside of it
     document.addEventListener('click', (event) => {
         if (!navLinks.contains(event.target) && !menuIcon.contains(event.target)) {
             navLinks.classList.remove('active');
@@ -29,58 +39,48 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
-    // Toggle body scroll
-    function toggleBodyScroll(disableScroll) {
-        if (disableScroll) {
-            document.body.style.overflow = 'hidden';
-        } else {
-            document.body.style.overflow = 'auto';
+    // Language toggle functionality
+    (function() {
+        let language = localStorage.getItem('language');
+
+        if (!language) {
+            language = window.location.pathname.includes('/en/') ? 'en' : 'sv';
+            localStorage.setItem('language', language);
         }
-    }
-});
 
+        checkbox.checked = language === 'en';
 
-
-
-
-
-document.addEventListener('DOMContentLoaded', function() {
-    const checkbox = document.getElementById('language-toggle');
-
-    // Check if the user has a language preference stored in localStorage
-    let language = localStorage.getItem('language');
-
-    // If localStorage is empty, detect the current page language based on URL
-    if (!language) {
-        if (window.location.pathname.includes('/en/')) {
-            language = 'en';
-            localStorage.setItem('language', 'en');
-        } else {
-            language = 'sv';
-            localStorage.setItem('language', 'sv');
+        if ((language === 'en' && !window.location.pathname.includes('/en/')) ||
+            (language === 'sv' && window.location.pathname.includes('/en/'))) {
+            window.location.href = language === 'en' ? '/PicConvert/en/index.html' : '/PicConvert/index.html';
         }
-    }
 
-    // Update the checkbox based on the language
-    checkbox.checked = language === 'en';
+        checkbox.addEventListener('change', () => {
+            const newLang = checkbox.checked ? 'en' : 'sv';
+            localStorage.setItem('language', newLang);
+            window.location.href = newLang === 'en' ? '/PicConvert/en/index.html' : '/PicConvert/index.html';
+        });
+    })();
 
-    // If the user is on the wrong language page, redirect them
-    if (language === 'en' && !window.location.pathname.includes('/en/')) {
-        window.location.href = '/en/index.html';
-    } else if (language === 'sv' && window.location.pathname.includes('/en/')) {
-        window.location.href = '/index.html';
-    }
+    // Modal functionality for screenshots
+    screenshots.forEach(screenshot => {
+        screenshot.addEventListener('click', () => {
+            modal.style.display = 'flex';
+            modalImg.src = screenshot.getAttribute('data-src');
+            toggleBodyScroll(true);
+        });
+    });
 
-    // Listen for changes to the checkbox and redirect accordingly
-    checkbox.addEventListener('change', function() {
-        if (this.checked) {
-            // Set language to English
-            localStorage.setItem('language', 'en');
-            window.location.href = '/en/index.html'; // Redirect to the English page
-        } else {
-            // Set language to Swedish
-            localStorage.setItem('language', 'sv');
-            window.location.href = '/index.html'; // Redirect to the Swedish page
+    closeBtn.addEventListener('click', () => {
+        modal.style.display = 'none';
+        toggleBodyScroll(false);
+    });
+
+    // Close modal when clicking outside of it
+    window.addEventListener('click', (event) => {
+        if (event.target === modal) {
+            modal.style.display = 'none';
+            toggleBodyScroll(false);
         }
     });
 });

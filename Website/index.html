@@ -28,6 +28,8 @@
             <ul class="nav-links">
                 <li><a href="#features">Funktioner</a></li>
                 <li><a href="#about">Om Appen</a></li>
+                <li><a href="#system-requirements">Systemkrav</a></li>
+                <li><a href="#demo">Demo</a></li>
                 <li><a href="#privacy">Integritet</a></li>
                 <li><a href="https://github.com/NordinAlex/PicConvert" target="_blank" rel="noopener">Källkod</a></li>
                 <li>
@@ -50,8 +52,14 @@
         <div class="hero">
             <h1>Välkommen till PicConvert</h1>
             <p class="hero-subtext">En kraftfull och enkel applikation för att hantera och konvertera dina bilder.</p>
-            <ms-store-badge productid="1231" window-mode="direct" language="sv" theme="light" class="ms-store-button"
-                animation="on"></ms-store-badge>
+            <p>
+                Kommmer snart till Microsoft Store!
+            </p>
+            <div class="ms-off">
+                <ms-store-badge productid="1231" window-mode="direct" language="sv" theme="light"
+                    class="ms-store-button" animation="on"></ms-store-badge>
+            </div>
+
 
         </div>
     </header>
@@ -91,7 +99,8 @@
                 inställningar som format, kvalitet och storlek för att möta dina behov.
             </p>
             <p>
-                Applikationen använder ImageMagick, ett ledande och kraftfullt bildbehandlingsbibliotek under GPL V3-licens, för att
+                Applikationen använder ImageMagick, ett ledande och kraftfullt bildbehandlingsbibliotek under GPL
+                V3-licens, för att
                 säkerställa högkvalitativa resultat vid varje konvertering. Med PicConvert kan du enkelt ändra storlek
                 på bilder, ta bort metadata för att skydda din integritet och konvertera bilder till flera olika format,
                 inklusive PNG, JPEG och WebP.
@@ -114,11 +123,47 @@
             </p>
         </div>
     </section>
+   
+    <section id="system-requirements" class="system-requirements-section">
+        <div class="system-requirements-container">
+            <h2>Systemkrav</h2>
+            <ul>
+                <li>Operativsystem: Windows 10 version 1809 (10.0.17763) eller senare</li>
+                <li>Processor: Minst 1 GHz eller snabbare, med 64-bitars arkitektur rekommenderas</li>
+                <li>RAM: Minst 4 GB</li>
+                <li>Hårddiskutrymme: Minst 500 MB ledigt utrymme</li>
+                <li>Bildskärm: Minst 800x600 upplösning, högre upplösning rekommenderas för bättre användarupplevelse</li>
+            </ul>
+        </div>
+    </section>
+    
 
+    
+    <section id="demo" class="demo-section">
+        <div class="demo-container">
+            <h2>Demo och Skärmdumpar</h2>
+            <p>Titta på en snabb genomgång av hur PicConvert fungerar och några skärmdumpar från applikationen.</p>
+            <div class="video-container">
+                <iframe src="Assets/Demo/PicConvert_Demo.mp4" title="PicConvert Demo"
+                    frameborder="0" autoplay; clipboard-write></iframe>
+            </div>
+            <div class="screenshots-grid">
+                <img src="Assets/Demo/Main_DarkMode.webp" alt="Skärmdump 1" class="screenshot" data-src="Assets/Demo/Main_DarkMode.webp">
+                <img src="Assets/Demo/Settings_DarkMode.webp" alt="Skärmdump 2" class="screenshot"  data-src="Assets/Demo/Settings_DarkMode.webp">
+                <img src="Assets/Demo/Main_LightMode.webp" alt="Skärmdump 3" class="screenshot"  data-src="Assets/Demo/Main_LightMode.webp">
+            </div>
+        </div>
+        <div id="image-modal" class="modal">
+            <span class="close">&times;</span>
+            <img class="modal-content" id="modal-img" alt="Modal Image">
+        </div>
+    </section>
+     
+    
     <section id="privacy" class="privacy-section">
         <div class="privacy-container">
             <h2>Integritetspolicy</h2>
-            <h3>1. Insamling av information</h3>           
+            <h3>1. Insamling av information</h3>
             <p>
                 PicConvert samlar inte in någon personlig information från användare. Alla filer du bearbetar förblir
                 lokala på din enhet. Vänligen notera att applikationen tillhandahålls "som den är" under MIT-licens, och
@@ -139,8 +184,9 @@
 
             <h3>3. Kontakt</h3>
             <p>
-                Om du har några frågor eller bekymmer om vår integritetspolicy, vänligen kontakta oss via vår <a
-                    href="https://github.com/NordinAlex/PicConvert">GitHub-sida</a>.
+                Om du har några frågor eller förslag, är du välkommen att <a
+                    href="mailto:alexnordin.dev@hotmail.com">kontakta mig via e-post</a> eller skapa en issue på
+                <a href="https://github.com/NordinAlex/PicConvert" target="_blank" rel="noopener">GitHub</a>.
             </p>
         </div>
     </section>
@@ -150,7 +196,8 @@
         <ul class="social-links">
             <li><a href="https://github.com/NordinAlex/PicConvert" target="_blank" rel="noopener">Linkedin</a></li>
             <li><a href="https://github.com/NordinAlex/PicConvert" target="_blank" rel="noopener">GitHub</a></li>
-            <li><a href="https://apps.microsoft.com/detail/45645645?mode=direct" target="_blank" rel="noopener">Microsoft Store</a></li>
+            <li><a href="https://apps.microsoft.com/detail/45645645?mode=direct" target="_blank"
+                    rel="noopener">Microsoft Store</a></li>
         </ul>
     </footer>
     <script type="module" src="https://get.microsoft.com/badge/ms-store-badge.bundled.js"></script>
