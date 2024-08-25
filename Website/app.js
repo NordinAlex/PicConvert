@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // Handle logo click - Redirect to home
-    logo.addEventListener('click', () => window.location.href = '/');
+    logo.addEventListener('click', () => window.location.href = '/PicConvert/');
 
     // Handle menu icon click - Toggle navigation menu
     menuIcon.addEventListener('click', () => {
