@@ -31,14 +31,14 @@ Efter installationen kan du öppna PicConvert och:
 
 
 ## Licens
+PicConvert är licensierat under MIT-licensen. Se filen `LICENSE` för mer information.
 
-PicConvert är licensierat under MIT-licensen. Se [LICENSE](LICENSE) för mer information.
+## Teknologi och Verktyg
+PicConvert är byggt med hjälp av följande teknologier och verktyg:
 
-## Tredjepartsbibliotek
+- **C# och WinUI 3**: Applikationen är utvecklad i C# och använder WinUI 3 för att bygga moderna Windows-appar.
+- **Template Studio for WinUI (C#)**: Projektet skapades med hjälp av Template Studio for WinUI, vilket ger en snabbstartsmall och olika kodgenereringar för att snabba upp utvecklingsprocessen.
+- **Magick.NET (Magick.NET-Q16-AnyCPU)**: Ett .NET-bindning för ImageMagick, som används för bildkonvertering och hantering.
+- **CommunityToolkit.Mvvm**, **WinUIEx**: Används för att förbättra funktionaliteten och användarupplevelsen.
 
-- **Magick.NET** - Licensierat under Apache License 2.0. Mer information finns [här](https://github.com/dlemstra/Magick.NET?tab=Apache-2.0-1-ov-file#readme).
-
-## Kontakt
-
-Om du har några frågor eller förslag, tveka inte att [kontakta mig](mailto:alexnordin.dev@hotmail.com) eller skapa en issue på GitHub.
 
