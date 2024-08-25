@@ -18,6 +18,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Windows.Storage;
+using Windows.Storage.AccessCache;
 using Windows.Storage.Pickers;
 using WinRT;
 
@@ -96,80 +97,116 @@ namespace PicConvert.ViewModels
 		// Method to open a file picker and allow the user to select multiple images
 		private async Task OpenFilePickerAsync()
 		{
-			var openPicker = new FileOpenPicker();
-
-			// Initialize the file picker with the app window handle
-			var window = App.MainWindow;
-			var hWnd = WinRT.Interop.WindowNative.GetWindowHandle(window);
-			WinRT.Interop.InitializeWithWindow.Initialize(openPicker, hWnd);
-
-			openPicker.ViewMode = PickerViewMode.Thumbnail;
-			openPicker.SuggestedStartLocation = PickerLocationId.PicturesLibrary;
-			foreach (var format in Enum.GetValues(typeof(InputImageFormats)).Cast<InputImageFormats>())
+			try
 			{
-				openPicker.FileTypeFilter.Add(FileFormatHelper.GetFileExtension(format));
-			}
+				var openPicker = new FileOpenPicker();
 
-			var files = await openPicker.PickMultipleFilesAsync();
+				// Initialize the file picker with the app window handle
+				var window = App.MainWindow;
+				var hWnd = WinRT.Interop.WindowNative.GetWindowHandle(window);
+				WinRT.Interop.InitializeWithWindow.Initialize(openPicker, hWnd);
 
-			if (files != null && files.Any())
-			{
-				var fileItems = files.Select(async file =>
+				openPicker.ViewMode = PickerViewMode.Thumbnail;
+				openPicker.SuggestedStartLocation = PickerLocationId.PicturesLibrary;
+				foreach (var format in Enum.GetValues(typeof(InputImageFormats)).Cast<InputImageFormats>())
 				{
-					var properties = await file.GetBasicPropertiesAsync();
-					return new FileItemModel
-					{
-						Path = file.Path,
-						Name = file.Name,
-						Format = file.FileType,
-						Size = (int)(properties.Size / 1024), // size in KB		
-						DisplaySize = properties.Size < 1024 * 1024 ? $"{properties.Size / 1024} KB" : $"{properties.Size / (1024 * 1024):F2} MB",
-						IsSelected = false
-					};
-				});
+					openPicker.FileTypeFilter.Add(FileFormatHelper.GetFileExtension(format));
+				}
 
-				SelectFiles(await Task.WhenAll(fileItems));
+				var files = await openPicker.PickMultipleFilesAsync();
+
+				if (files != null && files.Any())
+				{
+					var fileItems = files.Select(async file =>
+					{
+						var properties = await file.GetBasicPropertiesAsync();
+						return new FileItemModel
+						{
+							Path = file.Path,
+							Name = file.Name,
+							Format = file.FileType,
+							Size = (int)(properties.Size / 1024), // size in KB		
+							DisplaySize = properties.Size < 1024 * 1024 ? $"{properties.Size / 1024} KB" : $"{properties.Size / (1024 * 1024):F2} MB",
+							IsSelected = false
+						};
+					});
+
+					SelectFiles(await Task.WhenAll(fileItems));
+				}
+			}
+			catch (Exception ex)
+			{
+				await _dialogService.ShowMessageDialogAsync(
+						_loader.GetString("Main_CD_Failed_Title"),
+						ex.Message.ToString());
 			}
 		}
 
 		// Method to add selected files to the collection, ensuring no duplicates
 		private void SelectFiles(IEnumerable<FileItemModel> files)
 		{
-			if (files == null) return;
-
-			foreach (var file in files)
+			try
 			{
-				if (!InputImages.Any(f => f.Path == file.Path))
+				if (files == null) return;
+
+				foreach (var file in files)
 				{
-					InputImages.Add(file);
+					if (!InputImages.Any(f => f.Path == file.Path))
+					{
+						InputImages.Add(file);
+					}
 				}
+			}
+			catch (Exception ex)
+			{
+				_dialogService.ShowMessageDialogAsync(
+						_loader.GetString("Main_CD_Failed_Title"),
+						ex.Message.ToString());
 			}
 		}
 
 		// Method to select all files in the collection
 		private void SelectAllFiles()
 		{
-			foreach (var file in InputImages)
+			try
 			{
-				file.IsSelected = true;
+				foreach (var file in InputImages)
+				{
+					file.IsSelected = true;
+				}
+			}
+			catch (Exception ex)
+			{
+				_dialogService.ShowMessageDialogAsync(
+						_loader.GetString("Main_CD_Failed_Title"),
+						ex.Message.ToString());
 			}
 		}
 
 		// Method to remove selected files from the collection
 		private async Task RemoveSelectedFilesAsync()
 		{
-			var filesToRemove = InputImages.Where(file => file.IsSelected).ToList();
-			if (!filesToRemove.Any())
+			try
+			{
+				var filesToRemove = InputImages.Where(file => file.IsSelected).ToList();
+				if (!filesToRemove.Any())
+				{
+					await _dialogService.ShowMessageDialogAsync(
+						_loader.GetString("Main_RemoveSelectedFiles_CD_Title"),
+						_loader.GetString("Main_RemoveSelectedFiles_CD_Content"));
+					return;
+				}
+
+				foreach (var file in filesToRemove)
+				{
+					InputImages.Remove(file);
+				}
+			}
+			catch (Exception ex)
 			{
 				await _dialogService.ShowMessageDialogAsync(
-					_loader.GetString("Main_RemoveSelectedFiles_CD_Title"),
-					_loader.GetString("Main_RemoveSelectedFiles_CD_Content"));
-				return;
-			}
-
-			foreach (var file in filesToRemove)
-			{
-				InputImages.Remove(file);
+						_loader.GetString("Main_CD_Failed_Title"),
+						ex.Message.ToString());
 			}
 		}
 
@@ -231,7 +268,7 @@ namespace PicConvert.ViewModels
 						processedFiles++;
 						reportProgress((int)((processedFiles / (double)totalFiles) * 100));
 					}
-					progressDialog.Hide();					
+					progressDialog.Hide();
 					await _dialogService.ShowMessageDialogAsync(
 						_loader.GetString("Main_ConvertFiles_CD_OK_Title"),
 						_loader.GetString("Main_ConvertFiles_CD_OK_Content"));
@@ -240,46 +277,68 @@ namespace PicConvert.ViewModels
 				progressDialog.Hide();
 			}
 			catch (OperationCanceledException)
-			{				
+			{
 				await _dialogService.ShowMessageDialogAsync(
 						_loader.GetString("Main_ConvertFiles_CD_Cancelled_Title"),
 						_loader.GetString("Main_ConvertFiles_CD_Cancelled_Content"));
 			}
+			catch (Exception ex)
+			{
+				await _dialogService.ShowMessageDialogAsync(
+						_loader.GetString("Main_CD_Failed_Title"),
+						ex.Message.ToString());
+			}
 			finally
 			{
-				progressDialog.Hide(); // Säkerställ att dialogen stängs vid avbrytande
+				progressDialog.Hide();
 			}
 		}
 
 
-		// Method to select a folder for saving converted files
+		// Method to select a folder for saving converted files		
 		private async Task SelectFolderAsync()
 		{
-			var folderPicker = new FolderPicker();
-
-			var window = App.MainWindow;
-			var hWnd = WinRT.Interop.WindowNative.GetWindowHandle(window);
-			WinRT.Interop.InitializeWithWindow.Initialize(folderPicker, hWnd);
-
-			var folder = await folderPicker.PickSingleFolderAsync();
-			if (folder != null)
+			try
 			{
-				SelectedFolder = folder;
+				var folderPicker = new FolderPicker();
+
+				// Retrieve the window handle (HWND) of the current WinUI 3 window.
+				var window = App.MainWindow;
+				var hWnd = WinRT.Interop.WindowNative.GetWindowHandle(window);
+
+				// Initialize the folder picker with the window handle (HWND).
+				WinRT.Interop.InitializeWithWindow.Initialize(folderPicker, hWnd);
+
+				// Set options for your folder picker
+				folderPicker.SuggestedStartLocation = PickerLocationId.Desktop;
+				folderPicker.FileTypeFilter.Add("*");
+
+				// Open the picker for the user to pick a folder
+				var folder = await folderPicker.PickSingleFolderAsync();
+				if (folder != null)
+				{
+					SelectedFolder = folder;
+				}
+			}
+			catch (Exception ex)
+			{
+				await _dialogService.ShowMessageDialogAsync(_loader.GetString("Main_CD_Failed_Title"), ex.Message.ToString());
 			}
 		}
+
 
 		// Method to validate user inputs before starting the conversion process
 		private async Task<bool> ValidateInputsAsync()
 		{
 			if (InputImages == null || !InputImages.Any())
-			{				
+			{
 				await _dialogService.ShowMessageDialogAsync(
 						_loader.GetString("Main_ValidateInputs_CD_InputImages_Title"),
 						_loader.GetString("Main_ValidateInputs_CD_InputImages_Content"));
 				return false;
 			}
 			if (SelectedFolder == null)
-			{				
+			{
 				await _dialogService.ShowMessageDialogAsync(
 						_loader.GetString("Main_ValidateInputs_CD_SelectedFolder_Title"),
 						_loader.GetString("Main_ValidateInputs_CD_SelectedFolder_Content"));

@@ -41,7 +41,7 @@
                 <!-- Rubriker -->
                 <Grid Grid.Row="1" Background="{ThemeResource AppBarBackgroundThemeBrush}">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="45"/>
+                        <ColumnDefinition Width="55"/>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
@@ -51,7 +51,7 @@
                     <TextBlock x:Uid="Main_LeftSection_Header_Format" Grid.Column="2" Padding="20"/>
                     <TextBlock x:Uid="Main_LeftSection_Header_Size" Grid.Column="3" Padding="20"/>
                 </Grid>
-               
+
                 <!-- ListView med ScrollViewer -->
                 <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto"  HorizontalScrollBarVisibility="Auto">
                     <ListView ItemsSource="{Binding InputImages}" VerticalAlignment="Stretch" BorderBrush="DarkGray" BorderThickness="0.5" HorizontalAlignment="Stretch">
@@ -59,8 +59,8 @@
                             <ItemsPanelTemplate>
                                 <VirtualizingStackPanel/>
                             </ItemsPanelTemplate>
-                        </ListView.ItemsPanel>                        
-                        <ListView.ItemTemplate>                            
+                        </ListView.ItemsPanel>
+                        <ListView.ItemTemplate>
                             <DataTemplate>
                                 <Grid>
                                     <Grid.ColumnDefinitions>
@@ -68,7 +68,7 @@
                                         <ColumnDefinition Width="*"/>
                                         <ColumnDefinition Width="Auto"/>
                                         <ColumnDefinition Width="Auto"/>
-                                    </Grid.ColumnDefinitions>                                   
+                                    </Grid.ColumnDefinitions>
                                     <CheckBox IsChecked="{Binding IsSelected, Mode=TwoWay}" VerticalAlignment="Center" Padding="0" Grid.Column="0"/>
                                     <TextBlock Text="{Binding Name}" VerticalAlignment="Center" Grid.Column="1" Padding="10"/>
                                     <TextBlock Text="{Binding Format}" VerticalAlignment="Center" Grid.Column="2" Padding="10"/>
@@ -78,10 +78,10 @@
                         </ListView.ItemTemplate>
                     </ListView>
                 </ScrollViewer>
-                
+
                 <!-- Knappar längst ner -->
                 <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Stretch" BorderBrush="Gray" Padding="20">
-                   
+
                     <Button Content="{x:Bind helpers:MainResourceKeys.SelectAll}"
                             Command="{Binding SelectAllCommand}"
                             Margin="0,0,10,0"/>
@@ -89,7 +89,7 @@
                             Command="{Binding RemoveSelectedCommand}"
                             Margin="0,0,10,0"/>
                 </StackPanel>
-                
+
             </Grid>
         </Border>
 

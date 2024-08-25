@@ -8,14 +8,14 @@
   IgnorableNamespaces="uap rescap">
 
   <Identity
-    Name="AlexNordin.PicConvert"
+    Name="AlexNordin.PicConvert.Beta"
     Publisher="CN=1F285B68-4543-4D01-AE7F-C02CB9D17F74"
     Version="1.0.2.0" />
 
-  <mp:PhoneIdentity PhoneProductId="01061701-abb7-48a6-a883-22835d086ed6" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+  <mp:PhoneIdentity PhoneProductId="bfa1d65e-4fdd-4e35-99de-6c8c8cd1cd81" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
-    <DisplayName>PicConvert</DisplayName>
+    <DisplayName>PicConvert.Beta</DisplayName>
     <PublisherDisplayName>Alex Nordin</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
@@ -35,8 +35,8 @@
       Executable="$targetnametoken$.exe"
       EntryPoint="$targetentrypoint$">
       <uap:VisualElements
-        DisplayName="PicConvert"
-        Description="PicConvert is a simple image converter app."
+        DisplayName="PicConvert.Beta"
+        Description="PicConvert Debug"
         BackgroundColor="transparent"
         Square150x150Logo="Assets\Square150x150Logo.png"
         Square44x44Logo="Assets\Square44x44Logo.png">
