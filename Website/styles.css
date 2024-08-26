@@ -143,6 +143,68 @@ nav {
     background-color: darken(var(--primary-color), 10%);
 }
 
+/* Download Custom Button */
+.btn-download {
+    margin-top: 2rem;
+    padding: 0.8em 2em;
+    border: none;
+    outline: none;
+    color: rgb(255, 255, 255);
+    background: #111;
+    cursor: pointer;
+    position: relative;
+    z-index: 0;
+    border-radius: 10px;
+    -webkit-user-select: none;
+    user-select: none;
+    touch-action: manipulation;  
+    text-decoration: none;
+    transition: transform 0.3s ease;
+}
+.btn-download:hover {
+    transform: translateY(-5px);
+}
+.btn-download:before {
+    content: "";
+    background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    background-size: 400%;
+    z-index: -1;
+    -webkit-filter: blur(5px);
+    filter: blur(5px);
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    animation: glowing-btn-download 20s linear infinite;
+    transition: opacity 0.3s ease-in-out;
+    border-radius: 10px;
+}
+
+@keyframes glowing-btn-download {
+    0% {
+        background-position: 0 0;
+    }
+    50% {
+        background-position: 400% 0;
+    }
+    100% {
+        background-position: 0 0;
+    }
+}
+
+.btn-download:after {
+    z-index: -1;
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #222;
+    left: 0;
+    top: 0;
+    border-radius: 10px;
+}
+
 /* Features Section */
 .features-section {
     text-align: center;
@@ -291,11 +353,9 @@ footer p {
         align-items: center;
         padding-top: 5rem;
         transform: translateX(-120%);
-        transition: transform 0.3s ease-in-out;        
+        transition: transform 0.3s ease-in-out;
         justify-content: flex-start;
         z-index: 10;
-        
-        
     }
 
     .nav-links.active {
@@ -309,9 +369,6 @@ footer p {
     .nav-links a {
         font-size: 1.5rem;
     }
-
-
-
 }
 
 /* _______________________ */
@@ -319,7 +376,7 @@ footer p {
 .language-switcher {
     display: flex;
     align-items: center;
-    gap: 10px;   
+    gap: 10px;
 }
 
 .language-switcher .switch {
@@ -409,23 +466,17 @@ footer p {
     opacity: 1;
 }
 
-
-
-.ms-off{
-    pointer-events: none; 
-    opacity: 0.5;
-}
-
-
 /* Responsiva layouter och stil för sektionerna */
 
-.system-requirements-section, .demo-section {
+.system-requirements-section,
+.demo-section {
     padding: 40px 20px;
     background-color: #f8f8f8;
     margin-top: 40px;
 }
 
-.system-requirements-container, .demo-container {
+.system-requirements-container,
+.demo-container {
     max-width: 1200px;
     margin: 0 auto;
     text-align: center;
@@ -469,34 +520,31 @@ footer p {
 
 /* Lägg till andra anpassade stilar efter behov */
 
-
 /* Modal container */
 .modal {
-    display: none; 
-    position: fixed; 
-    z-index: 1; 
+    display: none;
+    position: fixed;
+    z-index: 1;
     left: 0;
     top: 0;
     right: 0;
     bottom: 0;
     width: 100%;
     height: 100vh;
-    overflow: auto; 
+    overflow: auto;
     background-color: rgba(0, 0, 0, 0.8);
     justify-content: center;
-    align-items: center;   
-    
+    align-items: center;
 }
 
 /* Modal content */
 .modal-content {
-    margin:  10px ;
+    margin: 10px;
     padding: 5px;
     display: block;
-    width: 80%;  
+    width: 80%;
     border-radius: 20px;
     background: linear-gradient(0deg, #e70909, #004b87);
-  
 }
 
 /* Close button */
