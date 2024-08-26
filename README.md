@@ -17,8 +17,6 @@ För att använda PicConvert på din Windows 10 eller högre:
 
 1. [Ladda ner den senaste versionen](https://apps.microsoft.com/detail/9N65RVQB74MP?mode=direct) från Microsoft Store.
 
-**OBS:** Appen är för närvarande inte tillgänglig på Microsoft Store då jag väntar på certifiering. Håll utkik efter uppdateringar!
-
 
 
 ## Användning
