@@ -183,9 +183,6 @@
   <data name="Main_ResourceKeys_RemoveSelected" xml:space="preserve">
     <value>Remove selected</value>
   </data>
-  <data name="Main_ResourceKeys_SelectAll" xml:space="preserve">
-    <value>Select all</value>
-  </data>
   <data name="Main_ResourceKeys_SelectFolder" xml:space="preserve">
     <value>Select Folder</value>
   </data>
@@ -248,9 +245,6 @@
   </data>
   <data name="Shell_Main.Content" xml:space="preserve">
     <value>Convert</value>
-  </data>
-  <data name="Main_LeftSection_Header_Select.Text" xml:space="preserve">
-    <value>Choose</value>
   </data>
   <data name="Main_LeftSection_Header_Name.Text" xml:space="preserve">
     <value>Name</value>

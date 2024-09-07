@@ -183,9 +183,6 @@
   <data name="Main_ResourceKeys_RemoveSelected" xml:space="preserve">
     <value>Ta bort valda</value>
   </data>
-  <data name="Main_ResourceKeys_SelectAll" xml:space="preserve">
-    <value>Välj alla</value>
-  </data>
   <data name="Main_ResourceKeys_SelectFolder" xml:space="preserve">
     <value>Välj mapp</value>
   </data>
@@ -248,9 +245,6 @@
   </data>
   <data name="Shell_Main.Content" xml:space="preserve">
     <value>Konvertera</value>
-  </data>
-  <data name="Main_LeftSection_Header_Select.Text" xml:space="preserve">
-    <value>Välja</value>
   </data>
   <data name="Main_LeftSection_Header_Name.Text" xml:space="preserve">
     <value>Namn</value>
