@@ -183,9 +183,6 @@
   <data name="Main_ResourceKeys_RemoveSelected" xml:space="preserve">
     <value>Remove selected</value>
   </data>
-  <data name="Main_ResourceKeys_SelectAll" xml:space="preserve">
-    <value>Select all</value>
-  </data>
   <data name="Main_ResourceKeys_SelectFolder" xml:space="preserve">
     <value>Select Folder</value>
   </data>
@@ -217,7 +214,7 @@
     <value>https://github.com/NordinAlex/PicConvert</value>
   </data>
   <data name="SettingsPage_PrivacyTermsLink.Content" xml:space="preserve">
-    <value>Privacy</value>
+    <value>Privacy policy</value>
   </data>
   <data name="SettingsPage_PrivacyTermsLink.NavigateUri" xml:space="preserve">
     <value>https://nordinalex.github.io/PicConvert/en/index.html#privacy</value>
@@ -248,9 +245,6 @@
   </data>
   <data name="Shell_Main.Content" xml:space="preserve">
     <value>Convert</value>
-  </data>
-  <data name="Main_LeftSection_Header_Select.Text" xml:space="preserve">
-    <value>Choose</value>
   </data>
   <data name="Main_LeftSection_Header_Name.Text" xml:space="preserve">
     <value>Name</value>

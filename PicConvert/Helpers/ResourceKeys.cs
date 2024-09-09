@@ -7,8 +7,7 @@ public static class MainResourceKeys
 {
 	private static readonly ResourceLoader _resourceLoader = new ResourceLoader();
 
-	public static string InputImages => _resourceLoader.GetString("Main_ResourceKeys_InputImages");
-	public static string SelectAll => _resourceLoader.GetString("Main_ResourceKeys_SelectAll");
+	public static string InputImages => _resourceLoader.GetString("Main_ResourceKeys_InputImages");	
 	public static string RemoveSelected => _resourceLoader.GetString("Main_ResourceKeys_RemoveSelected");
 	public static string Settings => _resourceLoader.GetString("Main_ResourceKeys_Settings");
 	public static string Format => _resourceLoader.GetString("Main_ResourceKeys_Format");

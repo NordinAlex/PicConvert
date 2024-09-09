@@ -60,6 +60,18 @@ namespace PicConvert.ViewModels
 		[ObservableProperty]
 		private bool isPdfSelected;
 
+		
+		[ObservableProperty]
+		private bool isSettingChanged;
+
+
+		// Property för att kontrollera om alla filer är valda
+		[ObservableProperty]
+		private bool areAllSelected;
+
+		
+
+
 		// ICommand properties for UI bindings
 		public ICommand OpenFilePickerCommand { get; }
 		public ICommand SelectAllCommand { get; }
@@ -67,6 +79,7 @@ namespace PicConvert.ViewModels
 		public ICommand ConvertCommand { get; }
 		public ICommand SelectFolderCommand { get; }
 		public ICommand NullSettingCommand { get; }
+		
 
 		public MainViewModel(IDialogService dialogService)
 		{
@@ -74,12 +87,16 @@ namespace PicConvert.ViewModels
 			_dialogService = dialogService;
 			_loader = new ResourceLoader();
 			OpenFilePickerCommand = new RelayCommand(async () => await OpenFilePickerAsync());
-			SelectAllCommand = new RelayCommand(SelectAllFiles);
+			SelectAllCommand = new RelayCommand(() => ToggleSelectAllFiles());
 			RemoveSelectedCommand = new RelayCommand(async () => await RemoveSelectedFilesAsync());
 			ConvertCommand = new RelayCommand(async () => await ConvertFilesAsync());
 			SelectFolderCommand = new RelayCommand(async () => await SelectFolderAsync());
 			NullSettingCommand = new RelayCommand(DefaultSetting);
+
 		}
+		
+
+
 
 		// Method to set the default values
 		private void DefaultSetting()
@@ -87,12 +104,30 @@ namespace PicConvert.ViewModels
 			Quality = 75;
 			Size = 100;
 			SkipMetadata = false;
+
+			IsSettingChanged = false;
 		}
 		// when the selected format changes, check if it is PDF
 		partial void OnSelectedFormatChanged(object value)
 		{
 			IsPdfSelected = value != null && value.Equals(ImageFormats.PDF);
 		}
+
+		// Method to enable (IsSettingChanged) if Quality, Size or SkipMetadata is changed
+		partial void OnQualityChanged(int value)
+		{
+			IsSettingChanged = true;
+		}
+		partial void OnSizeChanged(int value)
+		{
+			IsSettingChanged = true;
+		}
+		partial void OnSkipMetadataChanged(bool value)
+		{
+			IsSettingChanged = true;
+		}
+
+
 
 		// Method to open a file picker and allow the user to select multiple images
 		private async Task OpenFilePickerAsync()
@@ -165,15 +200,19 @@ namespace PicConvert.ViewModels
 			}
 		}
 
-		// Method to select all files in the collection
-		private void SelectAllFiles()
+		// Method to toggle the selection of all files
+		private void ToggleSelectAllFiles(bool selectAll = false)
 		{
 			try
 			{
+				bool allSelected = InputImages.All(file => file.IsSelected);
+
 				foreach (var file in InputImages)
 				{
-					file.IsSelected = true;
+					file.IsSelected = selectAll || !allSelected; 
 				}
+
+				AreAllSelected = InputImages.All(file => file.IsSelected);  // update the AreAllSelected property
 			}
 			catch (Exception ex)
 			{
@@ -183,14 +222,21 @@ namespace PicConvert.ViewModels
 			}
 		}
 
+		// Method to update the AreAllSelected property when the InputImages collection changes
+		partial void OnInputImagesChanged(ObservableCollection<FileItemModel> value)
+		{
+			AreAllSelected = InputImages.All(file => file.IsSelected);  // Använd den publika egenskapen här
+		}
+		
+
 		// Method to remove selected files from the collection
 		private async Task RemoveSelectedFilesAsync()
 		{
 			try
 			{
-				var filesToRemove = InputImages.Where(file => file.IsSelected).ToList();
+				var filesToRemove = InputImages.Where(file => file.IsSelected).ToList();				
 				if (!filesToRemove.Any())
-				{
+				{					
 					await _dialogService.ShowMessageDialogAsync(
 						_loader.GetString("Main_RemoveSelectedFiles_CD_Title"),
 						_loader.GetString("Main_RemoveSelectedFiles_CD_Content"));
@@ -201,6 +247,7 @@ namespace PicConvert.ViewModels
 				{
 					InputImages.Remove(file);
 				}
+				AreAllSelected = false;
 			}
 			catch (Exception ex)
 			{
