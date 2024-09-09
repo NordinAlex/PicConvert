@@ -214,7 +214,7 @@
     <value>https://github.com/NordinAlex/PicConvert</value>
   </data>
   <data name="SettingsPage_PrivacyTermsLink.Content" xml:space="preserve">
-    <value>Privacy</value>
+    <value>Privacy policy</value>
   </data>
   <data name="SettingsPage_PrivacyTermsLink.NavigateUri" xml:space="preserve">
     <value>https://nordinalex.github.io/PicConvert/en/index.html#privacy</value>

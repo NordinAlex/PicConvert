@@ -140,15 +140,14 @@
             <h2>Demo och Skärmdumpar</h2>
             <p>Titta på en snabb genomgång av hur PicConvert fungerar och några skärmdumpar från applikationen.</p>
             <div class="video-container">
-                <iframe src="Assets/Demo/PicConvert_Demo.mp4" title="PicConvert Demo" frameborder="0" autoplay;
-                    clipboard-write></iframe>
+                <iframe src="Assets/Demo/PicConvert_Demo.mp4" title="PicConvert Demo" frameborder="0" clipboard-write></iframe>
             </div>
-            <div class="screenshots-grid">
-                <img src="Assets/Demo/Main_DarkMode.webp" alt="Skärmdump 1" class="screenshot"
+            <div class="demoImages-grid">
+                <img src="Assets/Demo/Main_DarkMode.webp" alt="Skärmdump 1" class="demoImage"
                     data-src="Assets/Demo/Main_DarkMode.webp">
-                <img src="Assets/Demo/Settings_DarkMode.webp" alt="Skärmdump 2" class="screenshot"
+                <img src="Assets/Demo/Settings_DarkMode.webp" alt="Skärmdump 2" class="demoImage"
                     data-src="Assets/Demo/Settings_DarkMode.webp">
-                <img src="Assets/Demo/Main_LightMode.webp" alt="Skärmdump 3" class="screenshot"
+                <img src="Assets/Demo/Main_LightMode.webp" alt="Skärmdump 3" class="demoImage"
                     data-src="Assets/Demo/Main_LightMode.webp">
             </div>
         </div>
@@ -199,6 +198,10 @@
                     rel="noopener">Microsoft Store</a></li>
         </ul>
     </footer>
+    <div id="cookieBanner" class="cookie-banner">
+        <p id="cookieMessage"></p>
+        <button id="acceptCookies">Accept</button>
+    </div>
     <script type="module" src="https://get.microsoft.com/badge/ms-store-badge.bundled.js"></script>
     <script src="app.js"></script>
 </body>
