@@ -7,8 +7,12 @@ public static class FileFormatHelper
 {
 	private static readonly Dictionary<InputImageFormats, string> _fileExtensionMap = new()
 		{
-			{ InputImageFormats.JPEG, ".jpg" },
-			{ InputImageFormats.PNG, ".png" },			
+			{ InputImageFormats.JPEG, ".jpeg" },
+            { InputImageFormats.JPG, ".jpg" },
+            { InputImageFormats.BMP, ".bmp" },            
+            { InputImageFormats.HEIC, ".heic" },
+            { InputImageFormats.DNG, ".dng" },
+            { InputImageFormats.PNG, ".png" },			
 			{ InputImageFormats.SVG, ".svg" },
 			{ InputImageFormats.WebP, ".webp" }
 		};

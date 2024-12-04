@@ -2,8 +2,9 @@
 public enum ImageFormats
 {
 	JPEG,
-	PNG,
-	PDF,
-	SVG,
-	WebP
+    JPG,      
+    PNG,	
+	WebP,
+    SVG,
+    PDF
 }

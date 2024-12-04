@@ -2,7 +2,11 @@
 public enum InputImageFormats
 {
 	JPEG,
-	PNG,
+    JPG,
+    BMP,    
+    HEIC,
+    DNG,
+    PNG,
 	SVG,
 	WebP
 }

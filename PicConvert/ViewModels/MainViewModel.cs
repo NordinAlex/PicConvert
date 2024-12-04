@@ -325,13 +325,15 @@ namespace PicConvert.ViewModels
 			}
 			catch (OperationCanceledException)
 			{
-				await _dialogService.ShowMessageDialogAsync(
+                progressDialog.Hide();
+                await _dialogService.ShowMessageDialogAsync(
 						_loader.GetString("Main_ConvertFiles_CD_Cancelled_Title"),
 						_loader.GetString("Main_ConvertFiles_CD_Cancelled_Content"));
 			}
 			catch (Exception ex)
 			{
-				await _dialogService.ShowMessageDialogAsync(
+                progressDialog.Hide();
+                await _dialogService.ShowMessageDialogAsync(
 						_loader.GetString("Main_CD_Failed_Title"),
 						ex.Message.ToString());
 			}
